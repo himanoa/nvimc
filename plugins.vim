@@ -62,9 +62,9 @@ Plug 'itchyny/lightline.vim'
 Plug 'w0rp/ale'
 
 Plug 'autozimu/LanguageClient-neovim', {
-    \ 'branch': 'next',
-    \ 'do': 'bash install.sh',
-    \ }
+      \ 'branch': 'next',
+      \ 'do': 'bash install.sh',
+      \ }
 Plug 'junegunn/fzf'
 Plug 'rhysd/vim-operator-surround'
 Plug 'python-mode/python-mode', { 'for': ['python'] }
@@ -73,65 +73,87 @@ Plug 'mattn/emmet-vim', { 'for': ['html', 'vue'] }
 Plug 'zchee/deoplete-jedi', { 'for': ['python'] }
 Plug 'leafgarland/typescript-vim'
 Plug 'junegunn/goyo.vim'
+Plug 'airblade/vim-gitgutter'
 " Initialize plugin system
 call plug#end()
 
-call denite#custom#alias('source', 'file_rec/git', 'file_rec')
-call denite#custom#var('file_rec/git', 'command',
-\ ['git', 'ls-files', '-co', '--exclude-standard'])
-nnoremap <silent> <Space>f :<C-u>Denite
-\ `finddir('.git', ';') != '' ? 'file_rec/git' : 'file_rec'`<CR>
-nnoremap <silent> <Space>ff :<C-u>Denite
-\ `finddir('.git', ';') != '' ? 'file_rec/git' : 'file_rec'`<CR>
-noremap <silent> <Space>m :<C-u>Denite file_mru<CR>
-noremap <silent> <Space>ft :<C-u>Denite -default-action=tabopen
-\ `finddir('.git', ';') != '' ? 'file_rec/git' : 'file_rec'`<CR>
-noremap <silent> <Space>fs :<C-u>Denite -default-action=split
-\ `finddir('.git', ';') != '' ? 'file_rec/git' : 'file_rec'`<CR>
-noremap <silent> <Space>fv :<C-u>Denite -default-action=vsplit
-\ `finddir('.git', ';') != '' ? 'file_rec/git' : 'file_rec'`<CR>
-noremap <silent> <Space>g :<C-u>Denite grep<CR>
-noremap <silent> <Space>l :<C-u>Denite line<CR>
-noremap <silent> <Space>y :<C-u>Denite neoyank<CR>
-noremap <silent> <Space>b :<C-u>Denite buffer<CR>
-noremap <silent> <Space>u :<C-u>Denite -resume <CR>
+function! s:denite_config()
+  call denite#custom#alias('source', 'file_rec/git', 'file_rec')
+  call denite#custom#var('file_rec/git', 'command',
+        \ ['git', 'ls-files', '-co', '--exclude-standard'])
+  nnoremap <silent> <Space>f :<C-u>Denite
+        \ `finddir('.git', ';') != '' ? 'file_rec/git' : 'file_rec'`<CR>
+  nnoremap <silent> <Space>ff :<C-u>Denite
+        \ `finddir('.git', ';') != '' ? 'file_rec/git' : 'file_rec'`<CR>
+  noremap <silent> <Space>m :<C-u>Denite file_mru<CR>
+  noremap <silent> <Space>ft :<C-u>Denite -default-action=tabopen
+        \ `finddir('.git', ';') != '' ? 'file_rec/git' : 'file_rec'`<CR>
+  noremap <silent> <Space>fs :<C-u>Denite -default-action=split
+        \ `finddir('.git', ';') != '' ? 'file_rec/git' : 'file_rec'`<CR>
+  noremap <silent> <Space>fv :<C-u>Denite -default-action=vsplit
+        \ `finddir('.git', ';') != '' ? 'file_rec/git' : 'file_rec'`<CR>
+  noremap <silent> <Space>g :<C-u>Denite grep<CR>
+  noremap <silent> <Space>l :<C-u>Denite line<CR>
+  noremap <silent> <Space>y :<C-u>Denite neoyank<CR>
+  noremap <silent> <Space>b :<C-u>Denite buffer<CR>
+  noremap <silent> <Space>u :<C-u>Denite -resume <CR>
 
-if isdirectory(".git")
+  if isdirectory(".git")
     call denite#custom#var('file_rec', 'command', ['git', 'ls-files', '-co', '--exclude-standard'])
     call denite#custom#var('grep', 'command', ['git', '--no-pager', 'grep'])
     call denite#custom#var('grep', 'recursive_opts', [])
     call denite#custom#var('grep', 'final_opts', [])
     call denite#custom#var('grep', 'separator', [])
     call denite#custom#var('grep', 'default_opts', ['-nH'])
-endif
+  endif
 
-set hidden
-let g:LanguageClient_serverCommands = {
-    \ 'javascript': ['javascript-typescript-stdio'],
-    \ 'typescript': ['javascript-typescript-stdio'],
-    \ 'javascript.jsx': ['javascript-typescript-stdio'],
-    \ 'ruby': ['language_server-ruby'],
-    \ 'rust': ['rustup', 'run', 'nightly', 'rls'],
-    \ }
+endfunction
+function! s:languageClient_config()
+  set hidden
+  let g:LanguageClient_serverCommands = {
+        \ 'javascript': ['javascript-typescript-stdio'],
+        \ 'typescript': ['javascript-typescript-stdio'],
+        \ 'javascript.jsx': ['javascript-typescript-stdio'],
+        \ 'ruby': ['language_server-ruby'],
+        \ 'rust': ['rustup', 'run', 'nightly', 'rls'],
+        \ }
 
-nnoremap <silent> <C-k> :call LanguageClient_textDocument_hover()<CR>
-nnoremap <silent> gd :call LanguageClient_textDocument_definition()<CR>
-nnoremap <silent> <F2> :call LanguageClient_textDocument_rename()<CR>
+  nnoremap <silent> <C-k> :call LanguageClient_textDocument_hover()<CR>
+  nnoremap <silent> gd :call LanguageClient_textDocument_definition()<CR>
+  nnoremap <silent> <F2> :call LanguageClient_textDocument_rename()<CR>
+endfunction
 
-let g:ale_fixers = {
-      \ 'javascript': ['prettier'],
-      \ 'typescript': ['prettier']
-      \ }
-let g:ale_fix_on_save = 1
-let g:ale_javascript_prettier_use_local_config = 1
+function! s:ale_config()
+  let g:ale_fixers = {
+        \ 'javascript': ['prettier'],
+        \ 'typescript': ['prettier']
+        \ }
+  let g:ale_fix_on_save = 1
+  let g:ale_javascript_prettier_use_local_config = 1
+endfunction
 
-map ct  <Plug>(operator-camelize-toggle)
-map <silent> sa <Plug>(operator-surround-append)
-map <silent> sd <Plug>(operator-surround-delete)
-map <silent> sr <Plug>(operator-surround-replace)
+function! s:operator_camelize_config()
+  map ct  <Plug>(operator-camelize-toggle)
+endfunction
 
-let g:deoplete#enable_at_startup = 1
-let g:deoplete#complete_method = 'omnifunc'
+function! s:operator_surround_config()
+  map <silent> sa <Plug>(operator-surround-append)
+  map <silent> sd <Plug>(operator-surround-delete)
+  map <silent> sr <Plug>(operator-surround-replace)
+endfunction
 
-imap <C-f> <Plug>(neosnippet_expand_or_jump)
-smap <C-f> <Plug>(neosnippet_expand_or_jump)
+function! s:deoplete_config()
+  let g:deoplete#enable_at_startup = 1
+  let g:deoplete#complete_method = 'omnifunc'
+
+  imap <C-f> <Plug>(neosnippet_expand_or_jump)
+  smap <C-f> <Plug>(neosnippet_expand_or_jump)
+endfunction
+
+
+call s:ale_config()
+call s:operator_surround_config()
+call s:operator_camelize_config()
+call s:denite_config()
+call s:deoplete_config()
+call s:languageClient_config()
