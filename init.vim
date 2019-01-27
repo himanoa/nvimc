@@ -10,3 +10,4 @@ call s:source_rc('plugins.vim')
 call s:source_rc('common.vim')
 
 command Plugins :e ~/.config/nvim/plugins.vim
+command Commons :e ~/.config/nvim/common.vim
