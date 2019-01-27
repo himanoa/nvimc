@@ -28,7 +28,6 @@ noremap <C-o> ma<C-o>
 tnoremap <ESC> <C-\><C-n>
 syntax on
 autocmd BufWritePre * :%s/\s\+$//ge
-autocmd BufNewFile,BufRead *.vue set filetype=html
 augroup MyXML
   autocmd!
   autocmd Filetype xml inoremap <buffer> </ </<C-x><C-o>
