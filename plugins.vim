@@ -74,6 +74,7 @@ Plug 'zchee/deoplete-jedi', { 'for': ['python'] }
 Plug 'leafgarland/typescript-vim'
 Plug 'junegunn/goyo.vim'
 Plug 'airblade/vim-gitgutter'
+Plug 'posva/vim-vue'
 " Initialize plugin system
 call plug#end()
 
