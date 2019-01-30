@@ -75,6 +75,7 @@ Plug 'leafgarland/typescript-vim'
 Plug 'junegunn/goyo.vim'
 Plug 'airblade/vim-gitgutter'
 Plug 'posva/vim-vue'
+Plug 'glidenote/memolist.vim'
 " Initialize plugin system
 call plug#end()
 
@@ -151,6 +152,11 @@ function! s:deoplete_config()
   smap <C-f> <Plug>(neosnippet_expand_or_jump)
 endfunction
 
+function! s:memolist_config()
+  nnoremap <Leader>mn  :MemoNew<CR>
+  nnoremap <Leader>ml  :MemoList<CR>
+  nnoremap <Leader>mg  :MemoGrep<CR>
+endfunction
 
 call s:ale_config()
 call s:operator_surround_config()
@@ -158,3 +164,4 @@ call s:operator_camelize_config()
 call s:denite_config()
 call s:deoplete_config()
 call s:languageClient_config()
+call s:memolist_config()
