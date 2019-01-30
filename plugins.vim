@@ -49,7 +49,7 @@ Plug 'Shougo/neomru.vim'
 
 Plug 'jceb/vim-hier'
 
-Plug 'stephpy/vim-yaml'
+Plug 'tmsanrinsha/yaml.vim'
 
 Plug 'kana/vim-textobj-user'
 

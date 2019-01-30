@@ -45,4 +45,7 @@ hi Cursorline ctermfg=0 ctermbg=130 gui=bold,reverse guifg=Sienna4 guibg=White
 
 filetype plugin indent on
 syntax enable
-
+augroup MyVimrc
+    autocmd!
+augroup END
+autocmd MyVimrc FileType yaml setlocal foldmethod=syntax
