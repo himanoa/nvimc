@@ -11,6 +11,8 @@ set smartindent
 set shiftwidth=2
 set incsearch
 set inccommand=split
+set spelllang+=cjk
+set spell
 
 noremap <SPACE>, :noh<CR>
 
