@@ -12,6 +12,8 @@ set shiftwidth=2
 set incsearch
 set inccommand=split
 set spelllang+=cjk
+set ttyfast
+set lazyredraw
 set spell
 
 noremap <SPACE>, :noh<CR>
