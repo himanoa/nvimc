@@ -11,6 +11,7 @@ set smartindent
 set shiftwidth=2
 set incsearch
 set inccommand=split
+set noshowmode
 set spelllang+=cjk
 set ttyfast
 set lazyredraw
