@@ -49,3 +49,4 @@ augroup MyVimrc
     autocmd!
 augroup END
 autocmd MyVimrc FileType yaml setlocal foldmethod=syntax
+setlocal signcolumn=yes
