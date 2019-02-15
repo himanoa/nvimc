@@ -35,6 +35,7 @@ noremap <Tab> <C-o>
 noremap X :w<CR>
 noremap <C-o> ma<C-o>
 tnoremap <ESC> <C-\><C-n>
+inoremap <S-Tab> <C-d>
 syntax on
 autocmd BufWritePre * :%s/\s\+$//ge
 augroup MyXML
