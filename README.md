@@ -2,6 +2,10 @@
 
 My nvim config's
 
+## Required other tools
+
+- ripgrep
+
 ## Setup
 
 1. Run the following command.
