@@ -27,7 +27,7 @@ noremap th gT
 noremap tl gt
 
 noremap ; :
-noremap <Tab> gg
+noremap <Tab> <C-o>
 noremap X :w<CR>
 noremap <C-o> ma<C-o>
 tnoremap <ESC> <C-\><C-n>
