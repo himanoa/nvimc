@@ -15,7 +15,11 @@ set noshowmode
 set spelllang+=cjk
 set ttyfast
 set lazyredraw
-set spell
+augroup Spell
+  autocmd!
+  autocmd Filetype markdown set spell
+  autocmd Filetype gitcommit set spell
+augroup END
 
 noremap <SPACE>, :noh<CR>
 
@@ -51,7 +55,7 @@ hi Cursorline ctermfg=0 ctermbg=130 gui=bold,reverse guifg=Sienna4 guibg=White
 filetype plugin indent on
 syntax enable
 augroup MyVimrc
-    autocmd!
+  autocmd!
 augroup END
 autocmd MyVimrc FileType yaml setlocal foldmethod=syntax
 setlocal signcolumn=yes
