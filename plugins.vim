@@ -94,21 +94,13 @@ function! s:denite_config()
         \ `finddir('.git', ';') != '' ? 'file_rec/git' : 'file_rec'`<CR>
   noremap <silent> <Space>fv :<C-u>Denite -default-action=vsplit
         \ `finddir('.git', ';') != '' ? 'file_rec/git' : 'file_rec'`<CR>
+  call denite#custom#var('file_rec', 'command', ['rg'])
+  call denite#custom#var('grep', 'command', ['rg'])
   noremap <silent> <Space>g :<C-u>Denite grep<CR>
   noremap <silent> <Space>l :<C-u>Denite line<CR>
   noremap <silent> <Space>y :<C-u>Denite neoyank<CR>
   noremap <silent> <Space>b :<C-u>Denite buffer<CR>
   noremap <silent> <Space>u :<C-u>Denite -resume <CR>
-
-  if isdirectory(".git")
-    call denite#custom#var('file_rec', 'command', ['git', 'ls-files', '-co', '--exclude-standard'])
-    call denite#custom#var('grep', 'command', ['git', '--no-pager', 'grep'])
-    call denite#custom#var('grep', 'recursive_opts', [])
-    call denite#custom#var('grep', 'final_opts', [])
-    call denite#custom#var('grep', 'separator', [])
-    call denite#custom#var('grep', 'default_opts', ['-nH'])
-  endif
-
 endfunction
 function! s:languageClient_config()
   set hidden
