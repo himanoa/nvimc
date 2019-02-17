@@ -80,22 +80,12 @@ Plug 'glidenote/memolist.vim'
 call plug#end()
 
 function! s:denite_config()
-  call denite#custom#alias('source', 'file_rec/git', 'file_rec')
-  call denite#custom#var('file_rec/git', 'command',
-        \ ['git', 'ls-files', '-co', '--exclude-standard'])
-  nnoremap <silent> <Space>f :<C-u>Denite
-        \ `finddir('.git', ';') != '' ? 'file_rec/git' : 'file_rec'`<CR>
-  nnoremap <silent> <Space>ff :<C-u>Denite
-        \ `finddir('.git', ';') != '' ? 'file_rec/git' : 'file_rec'`<CR>
   noremap <silent> <Space>m :<C-u>Denite file_mru<CR>
-  noremap <silent> <Space>ft :<C-u>Denite -default-action=tabopen
-        \ `finddir('.git', ';') != '' ? 'file_rec/git' : 'file_rec'`<CR>
-  noremap <silent> <Space>fs :<C-u>Denite -default-action=split
-        \ `finddir('.git', ';') != '' ? 'file_rec/git' : 'file_rec'`<CR>
-  noremap <silent> <Space>fv :<C-u>Denite -default-action=vsplit
-        \ `finddir('.git', ';') != '' ? 'file_rec/git' : 'file_rec'`<CR>
   call denite#custom#var('file_rec', 'command', ['rg'])
+  call denite#custom#var('file_rec', 'command',
+        \ ['rg', '--files'])
   call denite#custom#var('grep', 'command', ['rg'])
+  noremap <silent> <Space>f :<C-u>Denite file/rec<CR>
   noremap <silent> <Space>g :<C-u>Denite grep<CR>
   noremap <silent> <Space>l :<C-u>Denite line<CR>
   noremap <silent> <Space>y :<C-u>Denite neoyank<CR>
