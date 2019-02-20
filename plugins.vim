@@ -98,6 +98,7 @@ function! s:languageClient_config()
         \ 'javascript': ['javascript-typescript-stdio'],
         \ 'typescript': ['javascript-typescript-stdio'],
         \ 'javascript.jsx': ['javascript-typescript-stdio'],
+        \ 'vue': ['vls'],
         \ 'ruby': ['language_server-ruby'],
         \ 'rust': ['rustup', 'run', 'nightly', 'rls'],
         \ }
