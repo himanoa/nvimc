@@ -41,7 +41,6 @@ Plug 'flazz/vim-colorschemes'
 Plug 'Shougo/deoplete.nvim'
 Plug 'cocopon/iceberg.vim'
 
-Plug 'Shougo/neosnippet-snippets'
 
 Plug 'tpope/vim-fugitive'
 
@@ -76,14 +75,14 @@ Plug 'junegunn/goyo.vim'
 Plug 'airblade/vim-gitgutter'
 Plug 'posva/vim-vue'
 Plug 'glidenote/memolist.vim'
+Plug 'tbodt/deoplete-tabnine', { 'do': './install.sh' }
 " Initialize plugin system
 call plug#end()
 
 function! s:denite_config()
   noremap <silent> <Space>m :<C-u>Denite file_mru<CR>
-  call denite#custom#var('file_rec', 'command', ['rg'])
-  call denite#custom#var('file_rec', 'command',
-        \ ['rg', '--files'])
+	call denite#custom#var('file/rec', 'command',
+	\ ['rg', '--files', '--glob', '!.git'])
   call denite#custom#var('grep', 'command', ['rg'])
   noremap <silent> <Space>f :<C-u>Denite file/rec<CR>
   noremap <silent> <Space>g :<C-u>Denite grep<CR>
@@ -131,9 +130,6 @@ endfunction
 function! s:deoplete_config()
   let g:deoplete#enable_at_startup = 1
   let g:deoplete#complete_method = 'omnifunc'
-
-  imap <C-f> <Plug>(neosnippet_expand_or_jump)
-  smap <C-f> <Plug>(neosnippet_expand_or_jump)
 endfunction
 
 function! s:memolist_config()
