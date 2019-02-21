@@ -1,3 +1,4 @@
+set termguicolors
 set number
 set relativenumber
 set encoding=utf-8
@@ -45,14 +46,14 @@ augroup MyXML
   autocmd Filetype html inoremap <buffer> </ </<C-x><C-o>
 augroup END
 
-hi clear SpellBad
-hi SpellBad cterm=underline
-hi clear SpellCap
-hi SpellCap cterm=underline,bold
-:highlight LineNr ctermfg=1
-au BufNewFile,BufRead *.tag setf pug
-colorscheme default
-hi Cursorline ctermfg=0 ctermbg=130 gui=bold,reverse guifg=Sienna4 guibg=White
+" hi clear SpellBad
+" hi SpellBad cterm=underline
+" hi clear SpellCap
+" hi SpellCap cterm=underline,bold
+" :highlight LineNr ctermfg=1
+" au BufNewFile,BufRead *.tag setf pug
+" colorscheme default
+" hi Cursorline ctermfg=0 ctermbg=130 gui=bold,reverse guifg=Sienna4 guibg=White
 
 filetype plugin indent on
 syntax enable

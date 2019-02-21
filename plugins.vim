@@ -100,6 +100,7 @@ function! s:languageClient_config()
         \ 'vue': ['vls'],
         \ 'ruby': ['language_server-ruby'],
         \ 'rust': ['rustup', 'run', 'nightly', 'rls'],
+        \ 'scala': ['metals-vim']
         \ }
 
   nnoremap <silent> <C-k> :call LanguageClient_textDocument_hover()<CR>
