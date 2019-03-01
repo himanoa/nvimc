@@ -112,7 +112,8 @@ endfunction
 function! s:ale_config()
   let g:ale_fixers = {
         \ 'javascript': ['prettier'],
-        \ 'typescript': ['prettier']
+        \ 'typescript': ['prettier'],
+        \ 'vue': ['prettier']
         \ }
   let g:ale_fix_on_save = 1
   let g:ale_javascript_prettier_use_local_config = 1
@@ -137,6 +138,11 @@ function! s:memolist_config()
   nnoremap <Leader>mn  :MemoNew<CR>
   nnoremap <Leader>ml  :MemoList<CR>
   nnoremap <Leader>mg  :MemoGrep<CR>
+endfunction
+
+function! s:emmet_config()
+  let g:user_emmet_leader_key = '<C-e>'
+  let g:user_emmet_install_global = 1
 endfunction
 
 call s:ale_config()
