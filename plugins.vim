@@ -82,8 +82,8 @@ call plug#end()
 
 function! s:denite_config()
   noremap <silent> <Space>m :<C-u>Denite file_mru<CR>
-	call denite#custom#var('file/rec', 'command',
-	\ ['rg', '--files', '--glob', '!.git'])
+  call denite#custom#var('file/rec', 'command',
+        \ ['rg', '--files', '--glob', '!.git'])
   call denite#custom#var('grep', 'command', ['rg'])
   noremap <silent> <Space>f :<C-u>Denite file/rec<CR>
   noremap <silent> <Space>g :<C-u>Denite grep<CR>
