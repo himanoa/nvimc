@@ -111,13 +111,22 @@ function! s:languageClient_config()
 endfunction
 
 function! s:ale_config()
+  let l:existConfig = 0
+  let l:prettierrcs = [".prettierrc", ".prettierrc.toml", ".prettierrc.config.js", ".prettierrc.js"]
+  for item in l:prettierrcs
+    let l:existConfig = l:existConfig + filereadable(item)
+  endfor
   let g:ale_fixers = {
-        \ 'javascript': ['prettier'],
-        \ 'typescript': ['prettier'],
-        \ 'vue': ['prettier']
+        \ 'javascript': ['eslint'],
+        \ 'typescript': ['eslint'],
+        \ 'vue': ['eslint']
         \ }
   let g:ale_fix_on_save = 1
-  let g:ale_javascript_prettier_use_local_config = 1
+  if l:existConfig > 0
+    call insert(g:ale_fixers.javascript, "prettier")
+    call insert(g:ale_fixers.typescript, "prettier")
+    call insert(g:ale_fixers.vue, "prettier")
+  endif
 endfunction
 
 function! s:operator_camelize_config()
