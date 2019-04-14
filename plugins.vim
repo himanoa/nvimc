@@ -76,6 +76,7 @@ Plug 'airblade/vim-gitgutter'
 Plug 'posva/vim-vue'
 Plug 'glidenote/memolist.vim'
 Plug 'tbodt/deoplete-tabnine', { 'do': './install.sh' }
+Plug 'roxma/LanguageServer-php-neovim',  {'do': 'composer install && composer run-script parse-stubs'}
 " Initialize plugin system
 call plug#end()
 
