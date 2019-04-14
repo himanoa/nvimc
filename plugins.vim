@@ -92,6 +92,7 @@ function! s:denite_config()
   noremap <silent> <Space>b :<C-u>Denite buffer<CR>
   noremap <silent> <Space>u :<C-u>Denite -resume <CR>
 endfunction
+
 function! s:languageClient_config()
   set hidden
   let g:LanguageClient_serverCommands = {
@@ -162,3 +163,4 @@ call s:denite_config()
 call s:deoplete_config()
 call s:languageClient_config()
 call s:memolist_config()
+call s:emmet_config()
