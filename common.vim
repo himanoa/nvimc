@@ -62,4 +62,5 @@ augroup MyVimrc
 augroup END
 autocmd MyVimrc FileType yaml setlocal foldmethod=syntax
 setlocal signcolumn=yes
-colorscheme tender
+set bg=light
+colorscheme pencil
