@@ -66,7 +66,6 @@ Plug 'autozimu/LanguageClient-neovim', {
       \ }
 Plug 'junegunn/fzf'
 Plug 'rhysd/vim-operator-surround'
-Plug 'python-mode/python-mode', { 'for': ['python'] }
 Plug 'jmcantrell/vim-virtualenv', { 'for': ['python'] }
 Plug 'mattn/emmet-vim', { 'for': ['html', 'vue'] }
 Plug 'zchee/deoplete-jedi', { 'for': ['python'] }
