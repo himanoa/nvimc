@@ -121,7 +121,8 @@ function! s:ale_config()
   let g:ale_fixers = {
         \ 'javascript': ['eslint'],
         \ 'typescript': ['eslint'],
-        \ 'vue': ['eslint']
+        \ 'vue': ['eslint'],
+        \ 'php': ['php_cs_fixer']
         \ }
   let g:ale_fix_on_save = 1
   if l:existConfig > 0
