@@ -78,10 +78,26 @@ Plug 'tbodt/deoplete-tabnine', { 'do': './install.sh' }
 Plug 'roxma/LanguageServer-php-neovim',  {'do': 'composer install && composer run-script parse-stubs'}
 Plug 'delphinus/vim-firestore'
 Plug 'reedes/vim-colors-pencil'
+Plug 'vim-scripts/VOoM'
 " Initialize plugin system
 call plug#end()
 
 function! s:denite_config()
+  autocmd FileType denite call s:denite_buffer_keymaps()
+  function! s:denite_buffer_keymaps() abort
+    nnoremap <silent><buffer><expr> <CR>
+    \ denite#do_map('do_action')
+    nnoremap <silent><buffer><expr> d
+    \ denite#do_map('do_action', 'delete')
+    nnoremap <silent><buffer><expr> p
+    \ denite#do_map('do_action', 'preview')
+    nnoremap <silent><buffer><expr> q
+    \ denite#do_map('quit')
+    nnoremap <silent><buffer><expr> i
+    \ denite#do_map('open_filter_buffer')
+    nnoremap <silent><buffer><expr> <Space>
+    \ denite#do_map('toggle_select').'j'
+  endfunction
   noremap <silent> <Space>m :<C-u>Denite file_mru<CR>
   call denite#custom#var('file/rec', 'command',
         \ ['rg', '--files', '--glob', '!.git'])
@@ -102,8 +118,9 @@ function! s:languageClient_config()
         \ 'javascript.jsx': ['javascript-typescript-stdio'],
         \ 'vue': ['vls'],
         \ 'ruby': ['language_server-ruby'],
-        \ 'rust': ['rustup', 'run', 'nightly', 'rls'],
+        \ 'rust': ['rls'],
         \ 'scala': ['metals-vim'],
+        \ 'tf': ['terraform-lsp'],
         \ }
 
   nnoremap <silent> <C-k> :call LanguageClient_textDocument_hover()<CR>
