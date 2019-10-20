@@ -17,6 +17,9 @@ set noshowmode
 set spelllang+=cjk
 set ttyfast
 set lazyredraw
+set pumblend=20
+set winblend=20
+set wildoptions=pum
 augroup Spell
   autocmd!
   autocmd Filetype markdown set spell
@@ -33,7 +36,6 @@ noremap th gT
 noremap tl gt
 
 noremap ; :
-noremap <Tab> <C-o>
 noremap X :w<CR>
 noremap <C-o> ma<C-o>
 tnoremap <ESC> <C-\><C-n>
@@ -63,4 +65,28 @@ augroup END
 autocmd MyVimrc FileType yaml setlocal foldmethod=syntax
 setlocal signcolumn=yes
 set bg=light
-colorscheme pencil
+colorscheme iceberg
+
+let g:terminal_color_0  = "#1b2b34" "black
+let g:terminal_color_1  = "#ed5f67" "red
+let g:terminal_color_2  = "#9ac895" "green
+let g:terminal_color_3  = "#fbc963" "yellow
+let g:terminal_color_4  = "#669acd" "blue
+let g:terminal_color_5  = "#c695c6" "magenta
+let g:terminal_color_6  = "#5fb4b4" "cyan
+let g:terminal_color_7  = "#c1c6cf" "white
+let g:terminal_color_8  = "#65737e" "bright black
+let g:terminal_color_9  = "#fa9257" "bright red
+let g:terminal_color_10 = "#9ac895" "bright green
+let g:terminal_color_11 = "#fbc963" "bright yellow
+let g:terminal_color_12 = "#669acd" "bright blue
+let g:terminal_color_13 = "#c695c6" "bright magenta
+let g:terminal_color_14 = "#5fb4b4" "bright cyan
+let g:terminal_color_15 = "#c1c6cf" "bright white
+let g:terminal_color_background="#F6F6F6" "background
+nmap <C-E> [winsize]
+nnoremap [winsize]k :resize -3<CR>
+nnoremap [winsize]j :resize +3<CR>
+nnoremap [winsize]h :vertical resize +10<CR>
+nnoremap [winsize]l :vertical resize -10<CR>et g:terminal_color_foreground="#c1c6cf" "foreground
+

@@ -4,43 +4,13 @@ call plug#begin('~/.vim/plugged')
 
 " Shorthand notation; fetches https://github.com/junegunn/vim-easy-align
 Plug 'junegunn/vim-easy-align'
-Plug 'kien/rainbow_parentheses.vim'
-
-" Any valid git URL is allowed
-Plug 'https://github.com/junegunn/vim-github-dashboard.git'
-
-" Multiple Plug commands can be written in a single line using | separators
-Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'
-
-" On-demand loading
-Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
-Plug 'tpope/vim-fireplace', { 'for': 'clojure' }
-
-" Using a non-master branch
-Plug 'rdnetto/YCM-Generator', { 'branch': 'stable' }
-
-" Using a tagged release; wildcard allowed (requires git 1.9.2 or above)
-Plug 'fatih/vim-go', { 'tag': '*' }
-
-" Plugin options
-Plug 'nsf/gocode', { 'tag': 'v.20150303', 'rtp': 'vim' }
-
-" Plugin outside ~/.vim/plugged with post-update hook
-Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
-
-" Unmanaged plugin (manually installed and updated)
-Plug '~/my-prototype-plugin'
 
 Plug 'rhysd/clever-f.vim'
 Plug 'freeo/vim-kalisi'
-Plug 'equalsraf/neovim-gui-shim'
-Plug 'altercation/vim-colors-solarized'
 Plug 'cohama/lexima.vim'
 Plug 'Shougo/denite.nvim'
-Plug 'flazz/vim-colorschemes'
 Plug 'Shougo/deoplete.nvim'
 Plug 'cocopon/iceberg.vim'
-
 
 Plug 'tpope/vim-fugitive'
 
@@ -52,7 +22,6 @@ Plug 'tmsanrinsha/yaml.vim'
 
 Plug 'kana/vim-textobj-user'
 
-Plug 'easymotion/vim-easymotion'
 Plug 'kana/vim-operator-user'
 Plug 'tyru/operator-camelize.vim'
 Plug 'editorconfig/editorconfig-vim'
@@ -66,19 +35,14 @@ Plug 'autozimu/LanguageClient-neovim', {
       \ }
 Plug 'junegunn/fzf'
 Plug 'rhysd/vim-operator-surround'
-Plug 'jmcantrell/vim-virtualenv', { 'for': ['python'] }
 Plug 'mattn/emmet-vim', { 'for': ['html', 'vue'] }
 Plug 'zchee/deoplete-jedi', { 'for': ['python'] }
-Plug 'leafgarland/typescript-vim'
-Plug 'junegunn/goyo.vim'
 Plug 'airblade/vim-gitgutter'
 Plug 'posva/vim-vue'
-Plug 'glidenote/memolist.vim'
-Plug 'tbodt/deoplete-tabnine', { 'do': './install.sh' }
-Plug 'roxma/LanguageServer-php-neovim',  {'do': 'composer install && composer run-script parse-stubs'}
-Plug 'delphinus/vim-firestore'
 Plug 'reedes/vim-colors-pencil'
-Plug 'vim-scripts/VOoM'
+Plug 'mhartington/nvim-typescript', {'do': './install.sh'}
+Plug 'HerringtonDarkholme/yats.vim'
+Plug 'qpkorr/vim-bufkill'
 " Initialize plugin system
 call plug#end()
 
@@ -98,23 +62,27 @@ function! s:denite_config()
     nnoremap <silent><buffer><expr> <Space>
     \ denite#do_map('toggle_select').'j'
   endfunction
-  noremap <silent> <Space>m :<C-u>Denite file_mru<CR>
+  noremap <silent> <Space>m :<C-u>Denite -split=floating file_mru<CR>
   call denite#custom#var('file/rec', 'command',
         \ ['rg', '--files', '--glob', '!.git'])
   call denite#custom#var('grep', 'command', ['rg'])
-  noremap <silent> <Space>f :<C-u>Denite file/rec<CR>
-  noremap <silent> <Space>g :<C-u>Denite grep<CR>
-  noremap <silent> <Space>l :<C-u>Denite line<CR>
-  noremap <silent> <Space>y :<C-u>Denite neoyank<CR>
-  noremap <silent> <Space>b :<C-u>Denite buffer<CR>
-  noremap <silent> <Space>u :<C-u>Denite -resume <CR>
+  noremap <silent> <Space>f :<C-u>Denite -split=floating file/rec<CR>
+  noremap <silent> <Space>fs :<C-u>Denite -split=floating -path=src file/rec<CR>
+  noremap <silent> <Space>fa :<C-u>Denite -split=floating -path=app file/rec<CR>
+  noremap <silent> <Space>fc :<C-u>call denite#helper#call_denite('Denite', '-path=' . expand('%:h') . ' file/rec', '', '')<CR>
+  noremap <silent> <Space>g :<C-u>Denite -split=floating grep<CR>
+  noremap <silent> <Space>l :<C-u>Denite -split=floating line<CR>
+  noremap <silent> <Space>y :<C-u>Denite -split=floating neoyank<CR>
+  noremap <silent> <Space>b :<C-u>Denite -split=floating buffer<CR>
+  noremap <silent> <Space>u :<C-u>Denite -split=floating -resume <CR>
+  noremap <silent> <C-n> :<C-u>Denite -split=floating file file:new <CR>
+  noremap <silent> <C-b> :<C-u>Denite -split=floating buffer<CR>
 endfunction
 
 function! s:languageClient_config()
   set hidden
   let g:LanguageClient_serverCommands = {
         \ 'javascript': ['javascript-typescript-stdio'],
-        \ 'typescript': ['javascript-typescript-stdio'],
         \ 'javascript.jsx': ['javascript-typescript-stdio'],
         \ 'vue': ['vls'],
         \ 'ruby': ['language_server-ruby'],
@@ -175,6 +143,21 @@ function! s:emmet_config()
   let g:user_emmet_install_global = 1
 endfunction
 
+function! s:deol_config()
+  noremap <C-t> :<C-u> :Deol -split=floating<CR>
+endfunction
+
+function! s:ts_config()
+  nnoremap <silent> <C-k> :TSType<CR>
+  nnoremap <silent> gd :TSDef<CR>
+  nnoremap <silent> <F2> :TSRenameCR>
+  nnoremap <silent> <F12> :TSCodeFix<CR>
+endfunction
+
+function! s:vim_bufkill()
+  command! WBD write | BD
+endfunction
+
 call s:ale_config()
 call s:operator_surround_config()
 call s:operator_camelize_config()
@@ -183,3 +166,7 @@ call s:deoplete_config()
 call s:languageClient_config()
 call s:memolist_config()
 call s:emmet_config()
+call s:deol_config()
+autocmd FileType typescript call s:ts_config()
+autocmd FileType typescript.tsx call s:ts_config()
+
