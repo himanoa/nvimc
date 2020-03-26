@@ -10,6 +10,7 @@ set expandtab
 set tabstop=2
 set softtabstop=2
 set smartindent
+set autoindent
 set shiftwidth=2
 set incsearch
 set inccommand=split
@@ -41,7 +42,6 @@ noremap <C-o> ma<C-o>
 tnoremap <ESC> <C-\><C-n>
 inoremap <S-Tab> <C-d>
 syntax on
-autocmd BufWritePre * :%s/\s\+$//ge
 augroup MyXML
   autocmd!
   autocmd Filetype xml inoremap <buffer> </ </<C-x><C-o>
@@ -89,4 +89,5 @@ nnoremap [winsize]k :resize -3<CR>
 nnoremap [winsize]j :resize +3<CR>
 nnoremap [winsize]h :vertical resize +10<CR>
 nnoremap [winsize]l :vertical resize -10<CR>et g:terminal_color_foreground="#c1c6cf" "foreground
-
+command! -nargs=* T split | terminal <args>
+command! -nargs=* VT vsplit | terminal <args>
