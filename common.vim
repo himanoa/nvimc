@@ -1,3 +1,4 @@
+set autoread
 set termguicolors
 set number
 set relativenumber
@@ -91,3 +92,5 @@ nnoremap [winsize]h :vertical resize +10<CR>
 nnoremap [winsize]l :vertical resize -10<CR>et g:terminal_color_foreground="#c1c6cf" "foreground
 command! -nargs=* T split | terminal <args>
 command! -nargs=* VT vsplit | terminal <args>
+au CursorHold,CursorHoldI * checktime
+:highlight LineNr guifg=#fff
