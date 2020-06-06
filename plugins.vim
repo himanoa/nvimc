@@ -9,7 +9,6 @@ Plug 'rhysd/clever-f.vim'
 Plug 'freeo/vim-kalisi'
 Plug 'cohama/lexima.vim'
 Plug 'Shougo/denite.nvim'
-Plug 'Shougo/deoplete.nvim'
 Plug 'cocopon/iceberg.vim'
 Plug 'raghur/vim-ghost', {'do': ':GhostInstall'}
 
@@ -37,7 +36,6 @@ Plug 'autozimu/LanguageClient-neovim', {
 Plug 'junegunn/fzf'
 Plug 'rhysd/vim-operator-surround'
 Plug 'mattn/emmet-vim', { 'for': ['html', 'vue'] }
-Plug 'zchee/deoplete-jedi', { 'for': ['python'] }
 Plug 'airblade/vim-gitgutter'
 Plug 'posva/vim-vue'
 Plug 'reedes/vim-colors-pencil'
@@ -256,11 +254,6 @@ function! s:operator_surround_config()
   map <silent> sr <Plug>(operator-surround-replace)
 endfunction
 
-function! s:deoplete_config()
-  let g:deoplete#enable_at_startup = 1
-  let g:deoplete#complete_method = 'omnifunc'
-endfunction
-
 function! s:memolist_config()
   nnoremap <Leader>mn  :MemoNew<CR>
   nnoremap <Leader>ml  :MemoList<CR>
@@ -280,7 +273,6 @@ call s:ale_config()
 call s:operator_surround_config()
 call s:operator_camelize_config()
 call s:denite_config()
-call s:deoplete_config()
 call s:coc_config()
 call s:memolist_config()
 call s:emmet_config()

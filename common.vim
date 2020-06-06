@@ -64,8 +64,8 @@ augroup MyVimrc
 augroup END
 autocmd MyVimrc FileType yaml setlocal foldmethod=syntax
 setlocal signcolumn=yes
-set bg=light
-colorscheme iceberg
+" set bg=light
+" colorscheme iceberg
 
 let g:terminal_color_0  = "#1b2b34" "black
 let g:terminal_color_1  = "#ed5f67" "red
@@ -91,3 +91,25 @@ nnoremap [winsize]h :vertical resize +10<CR>
 nnoremap [winsize]l :vertical resize -10<CR>et g:terminal_color_foreground="#c1c6cf" "foreground
 command! -nargs=* T split | terminal <args>
 command! -nargs=* VT vsplit | terminal <args>
+
+if system('uname -a | grep microsoft') != ""
+  let g:clipboard = {
+        \   'name': 'myClipboard',
+        \   'copy': {
+        \      '+': 'win32yank.exe -i',
+        \      '*': 'win32yank.exe -i',
+        \    },
+        \   'paste': {
+        \      '+': 'win32yank.exe -o',
+        \      '*': 'win32yank.exe -o',
+        \   },
+        \   'cache_enabled': 1,
+        \ }
+endif
+colorscheme iceberg
+highlight Normal guifg=none guibg=none 
+highlight NonText guifg=none guibg=none
+highlight LineNr guifg=none guibg=none
+highlight Folded guifg=none guibg=none
+highlight EndOfBuffer guifg=none guibg=none
+autocmd bufWritePre * :silent! %s/\r//g
