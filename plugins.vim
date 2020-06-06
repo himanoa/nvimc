@@ -43,6 +43,7 @@ Plug 'HerringtonDarkholme/yats.vim'
 Plug 'qpkorr/vim-bufkill'
 Plug 'tpope/vim-endwise'
 Plug 'neoclide/coc.nvim', {'do': 'yarn install --frozen-lockfile'}
+Plug 'lambdalisue/fern.vim' 
 " Initialize plugin system
 call plug#end()
 
@@ -62,21 +63,21 @@ function! s:denite_config()
     nnoremap <silent><buffer><expr> <Space>
     \ denite#do_map('toggle_select').'j'
   endfunction
-  noremap <silent> <Space>m :<C-u>Denite -split=floating file_mru<CR>
+  noremap <silent> <Space>m :<C-u>Denite  file_mru<CR>
   call denite#custom#var('file/rec', 'command',
         \ ['rg', '--files', '--glob', '!.git'])
   call denite#custom#var('grep', 'command', ['rg'])
-  noremap <silent> <Space>f :<C-u>Denite -split=floating file/rec<CR>
-  noremap <silent> <Space>fs :<C-u>Denite -split=floating -path=src file/rec<CR>
-  noremap <silent> <Space>fa :<C-u>Denite -split=floating -path=app file/rec<CR>
-  noremap <silent> <Space>fc :<C-u>call denite#helper#call_denite('Denite', '-path=' . expand('%:h') . ' file/rec', '', '')<CR>
-  noremap <silent> <Space>g :<C-u>Denite -split=floating grep<CR>
-  noremap <silent> <Space>l :<C-u>Denite -split=floating line<CR>
-  noremap <silent> <Space>y :<C-u>Denite -split=floating neoyank<CR>
-  noremap <silent> <Space>b :<C-u>Denite -split=floating buffer<CR>
-  noremap <silent> <Space>u :<C-u>Denite -split=floating -resume <CR>
-  noremap <silent> <C-n> :<C-u>Denite -split=floating file file:new <CR>
-  noremap <silent> <C-b> :<C-u>Denite -split=floating buffer<CR>
+  noremap <silent> <Space>f :<C-u>Denite  file/rec<CR>
+  noremap <silent> <Space>fs :<C-u>Denite  -path=src file/rec<CR>
+  noremap <silent> <Space>fa :<C-u>Denite  -path=app file/rec<CR>
+  noremap <silent> <Space>fc :<C-u>call denite#helper#call_denite('Denite', '-path=' . expand('%:h') . ' file' . ' file:new', '', '')<CR>
+  noremap <silent> <Space>g :<C-u>Denite  grep<CR>
+  noremap <silent> <Space>l :<C-u>Denite  line<CR>
+  noremap <silent> <Space>y :<C-u>Denite  neoyank<CR>
+  noremap <silent> <Space>b :<C-u>Denite  buffer<CR>
+  noremap <silent> <Space>u :<C-u>Denite  -resume <CR>
+  noremap <silent> <C-n> :<C-u>Denite file file:new <CR>
+  noremap <silent> <C-b> :<C-u>Denite  buffer<CR>
 endfunction
 
 function! s:coc_config()
@@ -269,6 +270,18 @@ function! s:vim_bufkill()
   command! WBD write | BD
 endfunction
 
+function! s:init_fern() abort
+  " Use 'select' instead of 'edit' for default 'open' action
+  nmap <buffer> <Plug>(fern-action-open) <Plug>(fern-action-open:select)
+endfunction
+
+function! s:fern_config()
+  augroup fern-custom
+    autocmd! *
+    autocmd FileType fern call s:init_fern()
+  augroup END
+endfunction
+
 call s:ale_config()
 call s:operator_surround_config()
 call s:operator_camelize_config()
@@ -276,4 +289,4 @@ call s:denite_config()
 call s:coc_config()
 call s:memolist_config()
 call s:emmet_config()
-
+call s:fern_config()

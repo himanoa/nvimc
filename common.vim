@@ -1,3 +1,4 @@
+set autoread
 set termguicolors
 set number
 set relativenumber
@@ -113,3 +114,5 @@ highlight LineNr guifg=none guibg=none
 highlight Folded guifg=none guibg=none
 highlight EndOfBuffer guifg=none guibg=none
 autocmd bufWritePre * :silent! %s/\r//g
+au CursorHold,CursorHoldI * checktime
+:highlight LineNr guifg=#fff
