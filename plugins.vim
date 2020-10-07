@@ -45,6 +45,9 @@ Plug 'qpkorr/vim-bufkill'
 Plug 'tpope/vim-endwise'
 Plug 'neoclide/coc.nvim', {'do': 'yarn install --frozen-lockfile'}
 Plug 'lambdalisue/fern.vim' 
+Plug 'junkblocker/patchreview-vim'
+Plug 'chemzqm/denite-git'
+Plug 'tyru/eskk.vim'
 " Initialize plugin system
 call plug#end()
 
@@ -283,6 +286,19 @@ function! s:fern_config()
   augroup END
 endfunction
 
+function! s:eskk_config()
+  let g:eskk#dictionary = {
+  \ 'path': "/Users/himanoa/Library/Application\ Support/AquaSKK/skk-jisyo.utf-8",
+  \ 'encoding': 'utf-8'
+  \}
+
+	let g:eskk#large_dictionary = {
+	\	'path': "/Users/himanoa/Documents/SKK-JISYO.L",
+	\	'sorted': 1,
+	\	'encoding': 'euc-jp',
+	\}
+endfunction
+
 call s:ale_config()
 call s:operator_surround_config()
 call s:operator_camelize_config()
@@ -291,3 +307,7 @@ call s:coc_config()
 call s:memolist_config()
 call s:emmet_config()
 call s:fern_config()
+if has('macunix')
+  call s:eskk_config()
+endif
+
