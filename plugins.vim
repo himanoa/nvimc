@@ -48,6 +48,7 @@ Plug 'lambdalisue/fern.vim'
 Plug 'junkblocker/patchreview-vim'
 Plug 'chemzqm/denite-git'
 Plug 'tyru/eskk.vim'
+Plug 'himanoa/goshiteki'
 " Initialize plugin system
 call plug#end()
 
