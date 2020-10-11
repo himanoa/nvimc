@@ -49,6 +49,7 @@ Plug 'junkblocker/patchreview-vim'
 Plug 'chemzqm/denite-git'
 Plug 'tyru/eskk.vim'
 Plug 'himanoa/goshiteki'
+Plug 'ruanyl/vim-gh-line'
 " Initialize plugin system
 call plug#end()
 
