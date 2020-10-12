@@ -50,6 +50,7 @@ Plug 'chemzqm/denite-git'
 Plug 'tyru/eskk.vim'
 Plug 'himanoa/goshiteki'
 Plug 'ruanyl/vim-gh-line'
+Plug 'knsh14/vim-github-link'
 " Initialize plugin system
 call plug#end()
 
