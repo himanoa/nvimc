@@ -51,6 +51,8 @@ Plug 'tyru/eskk.vim'
 Plug 'himanoa/goshiteki'
 Plug 'ruanyl/vim-gh-line'
 Plug 'knsh14/vim-github-link'
+Plug 'heraldofsolace/nisha-vim'
+Plug 'jparise/vim-graphql'
 " Initialize plugin system
 call plug#end()
 

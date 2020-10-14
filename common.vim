@@ -107,7 +107,6 @@ if system('uname -a | grep microsoft') != ""
         \   'cache_enabled': 1,
         \ }
 endif
-colorscheme iceberg
 highlight Normal guifg=none guibg=none 
 highlight NonText guifg=none guibg=none
 highlight LineNr guifg=none guibg=none
@@ -116,3 +115,5 @@ highlight EndOfBuffer guifg=none guibg=none
 autocmd bufWritePre * :silent! %s/\r//g
 au CursorHold,CursorHoldI * checktime
 :highlight LineNr guifg=#fff
+
+colorscheme nisha
