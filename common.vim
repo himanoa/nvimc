@@ -107,13 +107,13 @@ if system('uname -a | grep microsoft') != ""
         \   'cache_enabled': 1,
         \ }
 endif
-highlight Normal guifg=none guibg=none 
-highlight NonText guifg=none guibg=none
-highlight LineNr guifg=none guibg=none
-highlight Folded guifg=none guibg=none
-highlight EndOfBuffer guifg=none guibg=none
 autocmd bufWritePre * :silent! %s/\r//g
 au CursorHold,CursorHoldI * checktime
 :highlight LineNr guifg=#fff
 
 colorscheme nisha
+highlight DiffAdd guifg=NONE guibg=#334539
+highlight DiffChange guifg=NONE guibg=#334539
+highlight DiffDelete guifg=NONE guibg=#45333a
+highlight DiffText guifg=NONE guibg=#5f5d42
+highlight DiffLine guifg=NONE guibg=#8fa1b3
