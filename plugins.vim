@@ -53,6 +53,8 @@ Plug 'ruanyl/vim-gh-line'
 Plug 'knsh14/vim-github-link'
 Plug 'heraldofsolace/nisha-vim'
 Plug 'jparise/vim-graphql'
+Plug 'slim-template/vim-slim'
+
 " Initialize plugin system
 call plug#end()
 
