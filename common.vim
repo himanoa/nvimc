@@ -49,6 +49,9 @@ augroup MyXML
   autocmd Filetype html inoremap <buffer> </ </<C-x><C-o>
 augroup END
 
+noremap <silent> } :<C-u>cnext<CR>
+noremap <silent> { :<C-u>cprevious<CR>
+
 " hi clear SpellBad
 " hi SpellBad cterm=underline
 " hi clear SpellCap
@@ -117,3 +120,8 @@ highlight DiffChange guifg=NONE guibg=#334539
 highlight DiffDelete guifg=NONE guibg=#45333a
 highlight DiffText guifg=NONE guibg=#5f5d42
 highlight DiffLine guifg=NONE guibg=#8fa1b3
+
+if executable('rg')
+    let &grepprg = 'rg --vimgrep --hidden'
+    set grepformat=%f:%l:%c:%m
+endif

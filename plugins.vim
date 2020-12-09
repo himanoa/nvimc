@@ -28,12 +28,8 @@ Plug 'tyru/operator-camelize.vim'
 Plug 'editorconfig/editorconfig-vim'
 Plug 'sgur/vim-textobj-parameter'
 Plug 'itchyny/lightline.vim'
-Plug 'w0rp/ale'
+Plug 'neomake/neomake'
 
-Plug 'autozimu/LanguageClient-neovim', {
-      \ 'branch': 'next',
-      \ 'do': 'bash install.sh',
-      \ }
 Plug 'junegunn/fzf'
 Plug 'rhysd/vim-operator-surround'
 Plug 'mattn/emmet-vim', { 'for': ['html', 'vue'] }
@@ -234,27 +230,6 @@ function! s:coc_config()
   nnoremap <silent> <space>p  :<C-u>CocListResume<CR>
 endfunction
 
-function! s:ale_config()
-  let l:existConfig = 0
-  let l:prettierrcs = [".prettierrc", ".prettierrc.toml", ".prettierrc.config.js", ".prettierrc.js"]
-  for item in l:prettierrcs
-    let l:existConfig = l:existConfig + filereadable(item)
-  endfor
-  let g:ale_fixers = {
-        \ 'javascript': ['eslint'],
-        \ 'typescript': ['eslint'],
-        \ 'typescriptreact': ['eslint'],
-        \ 'vue': ['eslint'],
-        \ 'php': ['php_cs_fixer'],
-        \ 'ruby': ['rubocop']
-        \ }
-  let g:ale_fix_on_save = 1
-  if l:existConfig > 0
-    call insert(g:ale_fixers.javascript, "prettier")
-    call insert(g:ale_fixers.typescript, "prettier")
-    call insert(g:ale_fixers.vue, "prettier")
-  endif
-endfunction
 
 function! s:operator_camelize_config()
   map ct  <Plug>(operator-camelize-toggle)
@@ -306,10 +281,60 @@ function! s:eskk_config()
 	\}
 endfunction
 
-call s:ale_config()
+function! s:npm_which(command_name) 
+  if executable('npm')
+    let l:npm_bin = split(system('npm bin'), '\n')[0]
+  endif
+
+  if strlen(l:npm_bin) && executable(l:npm_bin . '/' . a:command_name)
+    let l:path = l:npm_bin . '/' . a:command_name
+    return l:path
+  endif
+  return ''
+endfunction
+
+function! s:neomake_config()
+  call neomake#configure#automake('rw')
+  let l:eslint_path = s:npm_which('eslint')
+  if strlen(l:eslint_path)
+    echo l:eslint_path
+    let g:neomake_typescriptreact_eslint_maker = {
+    \   'exe'           : l:eslint_path,
+    \   'args'          : ['-f', 'compact', expand('%')],
+    \   'errorformat': '%E%f: line %l\, col %c\, Error - %m,',
+    \   'buffer_output' : 1,
+    \ }
+    let g:neomake_typescript_eslint_maker = {
+    \   'exe'           : l:eslint_path,
+    \   'args'          : ['-f', 'compact', expand('%')],
+    \   'errorformat': '%E%f: line %l\, col %c\, Error - %m,',
+    \   'buffer_output' : 1,
+    \ }
+    let g:neomake_javascript_eslint_maker = {
+    \   'exe'           : l:eslint_path,
+    \   'args'          : ['-f', 'compact', expand('%')],
+    \   'errorformat': '%E%f: line %l\, col %c\, Error - %m,',
+    \   'buffer_output' : 1,
+    \ }
+  endif
+
+  augroup typescript_neomake
+    autocmd!
+    autocmd BufEnter *.ts Neomake eslint
+    autocmd BufEnter *.tsx Neomake eslint
+    autocmd BufEnter *.jsx Neomake eslint
+    autocmd BufEnter *.js Neomake eslint
+    autocmd BufWritePost *.ts Neomake eslint
+    autocmd BufWritePost *.tsx Neomake eslint
+    autocmd BufWritePost *.jsx Neomake eslint
+    autocmd BufWritePost *.js Neomake eslint
+  augroup END
+endfunction
+
 call s:operator_surround_config()
 call s:operator_camelize_config()
 call s:denite_config()
+call s:neomake_config()
 call s:coc_config()
 call s:memolist_config()
 call s:emmet_config()
