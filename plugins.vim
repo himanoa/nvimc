@@ -4,7 +4,6 @@ call plug#begin('~/.vim/plugged')
 
 " Shorthand notation; fetches https://github.com/junegunn/vim-easy-align
 Plug 'junegunn/vim-easy-align'
-Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 
 Plug 'rhysd/clever-f.vim'
 Plug 'freeo/vim-kalisi'
@@ -54,6 +53,7 @@ Plug 'slim-template/vim-slim'
 " Initialize plugin system
 call plug#end()
 
+
 function! s:denite_config()
   autocmd FileType denite call s:denite_buffer_keymaps()
   function! s:denite_buffer_keymaps() abort
@@ -72,7 +72,7 @@ function! s:denite_config()
   endfunction
   noremap <silent> <Space>m :<C-u>Denite  file_mru<CR>
   call denite#custom#var('file/rec', 'command',
-        \ ['rg', '--files', '--glob', '!.git'])
+        \ ['rg', '--files', '--glob', '!.git', '--hidden'])
   call denite#custom#var('grep', 'command', ['rg'])
   noremap <silent> <Space>f :<C-u>Denite  file/rec<CR>
   noremap <silent> <Space>fs :<C-u>Denite  -path=src file/rec<CR>

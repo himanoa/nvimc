@@ -120,6 +120,7 @@ highlight DiffChange guifg=NONE guibg=#334539
 highlight DiffDelete guifg=NONE guibg=#45333a
 highlight DiffText guifg=NONE guibg=#5f5d42
 highlight DiffLine guifg=NONE guibg=#8fa1b3
+set dictionary=~/.config/nvim/dictionary
 
 if executable('rg')
     let &grepprg = 'rg --vimgrep --hidden'
