@@ -1,5 +1,8 @@
 {
   "rust-analyzer": {
     "serverPath": "/bin/rust-analyzer"
+  },
+  "emmet": {
+    "includeLanguages": ["javascriptreact"]
   }
 }

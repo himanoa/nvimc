@@ -49,6 +49,7 @@ Plug 'knsh14/vim-github-link'
 Plug 'heraldofsolace/nisha-vim'
 Plug 'jparise/vim-graphql'
 Plug 'slim-template/vim-slim'
+Plug 'plasticboy/vim-markdown'
 
 " Initialize plugin system
 call plug#end()
@@ -160,7 +161,7 @@ function! s:coc_config()
   autocmd CursorHold * silent call CocActionAsync('highlight')
 
   " Symbol renaming.
-  nmap <leader>rn <Plug>(coc-rename)
+  nmap <C-S-r> <Plug>(coc-rename)
 
   " Formatting selected code.
   xmap <leader>f  <Plug>(coc-format-selected)
@@ -228,6 +229,8 @@ function! s:coc_config()
   nnoremap <silent> <space>k  :<C-u>CocPrev<CR>
   " Resume latest coc list.
   nnoremap <silent> <space>p  :<C-u>CocListResume<CR>
+  nnoremap <silent> <C-a> :<C-u>CocAction<CR>
+  inoremap <silent> <C-a> <ESC>:<C-u>CocAction<CR>
 endfunction
 
 
