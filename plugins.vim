@@ -49,7 +49,6 @@ Plug 'knsh14/vim-github-link'
 Plug 'heraldofsolace/nisha-vim'
 Plug 'jparise/vim-graphql'
 Plug 'slim-template/vim-slim'
-Plug 'plasticboy/vim-markdown'
 
 " Initialize plugin system
 call plug#end()
@@ -76,8 +75,6 @@ function! s:denite_config()
         \ ['rg', '--files', '--glob', '!.git', '--hidden'])
   call denite#custom#var('grep', 'command', ['rg'])
   noremap <silent> <Space>f :<C-u>Denite  file/rec<CR>
-  noremap <silent> <Space>fs :<C-u>Denite  -path=src file/rec<CR>
-  noremap <silent> <Space>fa :<C-u>Denite  -path=app file/rec<CR>
   noremap <silent> <Space>fc :<C-u>call denite#helper#call_denite('Denite', '-path=' . expand('%:h') . ' file' . ' file:new', '', '')<CR>
   noremap <silent> <Space>g :<C-u>Denite  grep<CR>
   noremap <silent> <Space>l :<C-u>Denite  line<CR>
