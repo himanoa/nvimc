@@ -12,7 +12,6 @@ call s:source_rc('common.vim')
 let s:scripts = split(glob(".vim/**.vim"), "\n")
 
 for script in s:scripts
-  echo script
   execute 'source' script
 endfor
 
