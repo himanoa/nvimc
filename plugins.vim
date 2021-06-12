@@ -23,6 +23,7 @@ Plug 'tmsanrinsha/yaml.vim'
 Plug 'kana/vim-textobj-user'
 
 Plug 'kana/vim-operator-user'
+Plug 'vim-scripts/textobj-verticalbar'
 Plug 'tyru/operator-camelize.vim'
 Plug 'editorconfig/editorconfig-vim'
 Plug 'sgur/vim-textobj-parameter'
@@ -30,6 +31,8 @@ Plug 'itchyny/lightline.vim'
 Plug 'neomake/neomake'
 
 Plug 'junegunn/fzf'
+Plug 'yuki-yano/fzf-preview.vim', { 'branch': 'release/rpc' }
+Plug 'antoinemadec/coc-fzf'
 Plug 'rhysd/vim-operator-surround'
 Plug 'mattn/emmet-vim', { 'for': ['html', 'vue'] }
 Plug 'airblade/vim-gitgutter'
@@ -54,35 +57,16 @@ Plug 'slim-template/vim-slim'
 call plug#end()
 
 
-function! s:denite_config()
-  autocmd FileType denite call s:denite_buffer_keymaps()
-  function! s:denite_buffer_keymaps() abort
-    nnoremap <silent><buffer><expr> <CR>
-    \ denite#do_map('do_action')
-    nnoremap <silent><buffer><expr> d
-    \ denite#do_map('do_action', 'delete')
-    nnoremap <silent><buffer><expr> p
-    \ denite#do_map('do_action', 'preview')
-    nnoremap <silent><buffer><expr> q
-    \ denite#do_map('quit')
-    nnoremap <silent><buffer><expr> i
-    \ denite#do_map('open_filter_buffer')
-    nnoremap <silent><buffer><expr> <Space>
-    \ denite#do_map('toggle_select').'j'
+function! s:fzf_config()
+  function! s:opened_file_directiroy_files()
+    execute 'FzfPreviewDirectoryFilesRpc '. expand('%:h')
+    return
   endfunction
-  noremap <silent> <Space>m :<C-u>Denite  file_mru<CR>
-  call denite#custom#var('file/rec', 'command',
-        \ ['rg', '--files', '--glob', '!.git', '--hidden'])
-  call denite#custom#var('grep', 'command', ['rg'])
-  noremap <silent> <Space>f :<C-u>Denite  file/rec<CR>
-  noremap <silent> <Space>fc :<C-u>call denite#helper#call_denite('Denite', '-path=' . expand('%:h') . ' file' . ' file:new', '', '')<CR>
-  noremap <silent> <Space>g :<C-u>Denite  grep<CR>
-  noremap <silent> <Space>l :<C-u>Denite  line<CR>
-  noremap <silent> <Space>y :<C-u>Denite  neoyank<CR>
-  noremap <silent> <Space>b :<C-u>Denite  buffer<CR>
-  noremap <silent> <Space>u :<C-u>Denite  -resume <CR>
-  noremap <silent> <C-n> :<C-u>Denite file file:new <CR>
-  noremap <silent> <C-b> :<C-u>Denite  buffer<CR>
+  noremap <silent> <Space>f :<C-u>FzfPreviewProjectFiles<CR>
+  noremap <silent> <Space>c :<C-u>call <SID>opened_file_directiroy_files()<CR>
+  noremap <silent> <Space>g :<C-u>FzfPreviewProjectGrepRpc<CR>
+  noremap <silent> <Space>r :<C-u>FzfPreviewProjectGrepRpc . --resume
+  noremap <silent> <C-b> :<C-u>FzfPreviewBuffersRpc<CR>
 endfunction
 
 function! s:coc_config()
@@ -208,26 +192,9 @@ function! s:coc_config()
   " NOTE: Please see `:h coc-status` for integrations with external plugins that
   " provide custom statusline: lightline.vim, vim-airline.
   set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
+  nnoremap <silent> <space>p       :<C-u>CocFzfListResume<CR>
 
-  " Mappings using CoCList:
-  " Show all diagnostics.
-  nnoremap <silent> <space>a  :<C-u>CocList diagnostics<cr>
-  " Manage extensions.
-  nnoremap <silent> <space>e  :<C-u>CocList extensions<cr>
-  " Show commands.
-  nnoremap <silent> <space>c  :<C-u>CocList commands<cr>
-  " Find symbol of current document.
-  nnoremap <silent> <space>o  :<C-u>CocList outline<cr>
-  " Search workspace symbols.
-  nnoremap <silent> <space>s  :<C-u>CocList -I symbols<cr>
-  " Do default action for next item.
-  nnoremap <silent> <space>j  :<C-u>CocNext<CR>
-  " Do default action for previous item.
-  nnoremap <silent> <space>k  :<C-u>CocPrev<CR>
-  " Resume latest coc list.
-  nnoremap <silent> <space>p  :<C-u>CocListResume<CR>
-  nnoremap <silent> <C-a> :<C-u>CocAction<CR>
-  inoremap <silent> <C-a> <ESC>:<C-u>CocAction<CR>
+  command! -nargs=0 Outlines execute(":CocFzfList outline")
 endfunction
 
 
@@ -333,7 +300,7 @@ endfunction
 
 call s:operator_surround_config()
 call s:operator_camelize_config()
-call s:denite_config()
+call s:fzf_config()
 call s:neomake_config()
 call s:coc_config()
 call s:memolist_config()

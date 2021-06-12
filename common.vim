@@ -126,4 +126,4 @@ if executable('rg')
     let &grepprg = 'rg --vimgrep --hidden'
     set grepformat=%f:%l:%c:%m
 endif
-
+command! -nargs=1 -complete=file Rename f <args>|call delete(expand('#'))
