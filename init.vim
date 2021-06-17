@@ -9,7 +9,7 @@ endfunction
 call s:source_rc('plugins.vim')
 call s:source_rc('common.vim')
 
-let s:scripts = split(glob(".vim/**.vim"), "\n")
+let s:scripts = split(glob(".git/.vim/**.vim"), "\n")
 
 for script in s:scripts
   execute 'source' script

@@ -18,7 +18,6 @@ set inccommand=split
 set noshowmode
 set spelllang+=cjk
 set ttyfast
-set lazyredraw
 set pumblend=20
 set winblend=20
 set wildoptions=pum

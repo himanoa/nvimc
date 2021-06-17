@@ -1,7 +1,5 @@
-call plug#begin('~/.vim/plugged')
-
 " Make sure you use single quotes
-
+call plug#begin('~/.vim/plugged')
 " Shorthand notation; fetches https://github.com/junegunn/vim-easy-align
 Plug 'junegunn/vim-easy-align'
 
@@ -52,6 +50,7 @@ Plug 'knsh14/vim-github-link'
 Plug 'heraldofsolace/nisha-vim'
 Plug 'jparise/vim-graphql'
 Plug 'slim-template/vim-slim'
+Plug 'tyru/caw.vim'
 
 " Initialize plugin system
 call plug#end()
@@ -64,7 +63,7 @@ function! s:fzf_config()
   endfunction
   noremap <silent> <Space>f :<C-u>FzfPreviewProjectFiles<CR>
   noremap <silent> <Space>c :<C-u>call <SID>opened_file_directiroy_files()<CR>
-  noremap <silent> <Space>g :<C-u>FzfPreviewProjectGrepRpc<CR>
+  noremap <silent> <Space>g :<C-u>FzfPreviewProjectGrepRpc<space>
   noremap <silent> <Space>r :<C-u>FzfPreviewProjectGrepRpc . --resume
   noremap <silent> <C-b> :<C-u>FzfPreviewBuffersRpc<CR>
 endfunction
