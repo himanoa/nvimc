@@ -43,7 +43,6 @@ Plug 'neoclide/coc.nvim', {'do': 'yarn install --frozen-lockfile'}
 Plug 'lambdalisue/fern.vim' 
 Plug 'junkblocker/patchreview-vim'
 Plug 'chemzqm/denite-git'
-Plug 'tyru/eskk.vim'
 Plug 'himanoa/goshiteki'
 Plug 'ruanyl/vim-gh-line'
 Plug 'knsh14/vim-github-link'

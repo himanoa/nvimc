@@ -1,12 +1,14 @@
 {
+  "rust-analyzer": {
+    "server": {
+      "path": "/bin/rust-analyzer"
+    }
+  },
   "languageserver": {
     "ocaml": {
       "command": "ocamllsp",
       "filetypes": ["ocaml", "reason"]
     }
-  },
-  "rust-analyzer": {
-    "serverPath": "/bin/rust-analyzer"
   },
   "emmet": {
     "includeLanguages": ["javascriptreact"]
