@@ -50,10 +50,92 @@ Plug 'heraldofsolace/nisha-vim'
 Plug 'jparise/vim-graphql'
 Plug 'slim-template/vim-slim'
 Plug 'tyru/caw.vim'
+Plug 'git@github.com:alp-inc/z-labo-himanoa.git', { 'do': 'mv alp-vim/* .' }
+Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+Plug 'itchyny/vim-gitbranch'
+Plug 'niklaas/lightline-gitdiff'
 
 " Initialize plugin system
 call plug#end()
 
+
+function! s:lightline_config() 
+  let g:lightline#gitdiff#indicator_added = '+'
+  let g:lightline#gitdiff#indicator_deleted = '-'
+  let g:lightline#gitdiff#separator = ' '
+  let g:lightline = {
+          \ 'colorscheme': 'wombat',
+          \ 'mode_map': {'c': 'NORMAL'},
+          \ 'active': {
+          \   'left': [ [ 'branchname' ], [ 'filename' ], ['gitdiff'] ],
+          \   'right': [ ['filetype'], ['lineinfo'] ]
+          \ },
+          \ 'component_function': {
+          \   'modified': 'LightlineModified',
+          \   'readonly': 'LightlineReadonly',
+          \   'fugitive': 'LightlineFugitive',
+          \   'filename': 'LightlineFilename',
+          \   'branchname': 'LightlineBranchname'
+          \ },
+          \ 'component': {
+          \   'gitstatus': '%<%{lightline_gitdiff#get_status()}',
+          \ },
+          \ 'component_expand': {
+          \   'gitdiff': 'lightline#gitdiff#get'
+          \ },
+          \ 'component_type': {
+          \   'gitdiff': 'middle'
+          \ },
+          \ 'component_visible_condition': {
+          \   'gitstatus': 'lightline_gitdiff#get_status() !=# ""',
+          \ },
+          \ }
+
+  function! LightlineModified()
+    return &ft =~ 'help\|vimfiler\|gundo' ? '' : &modified ? '+' : &modifiable ? '' : '-'
+  endfunction
+
+  function! LightlineReadonly()
+    return &ft !~? 'help\|vimfiler\|gundo' && &readonly ? 'x' : ''
+  endfunction
+
+  function! LightlineFilename()
+    return ('' != LightlineReadonly() ? LightlineReadonly() . ' ' : '') .
+          \ (&ft == 'vimfiler' ? vimfiler#get_status_string() :
+          \  &ft == 'unite' ? unite#get_status_string() :
+          \  &ft == 'vimshell' ? vimshell#get_status_string() :
+          \ '' != expand('%:t') ? expand('%') : '[No Name]') .
+          \ ('' != LightlineModified() ? ' ' . LightlineModified() : '')
+  endfunction
+
+  function! LightlineFugitive()
+    if &ft !~? 'vimfiler\|gundo' && exists('*fugitive#head')
+      return fugitive#head()
+    else
+      return ''
+    endif
+  endfunction
+
+  function! LightlineFileformat()
+    return winwidth(0) > 70 ? &fileformat : ''
+  endfunction
+
+  function! LightlineFiletype()
+    return winwidth(0) > 70 ? (&filetype !=# '' ? &filetype : 'no ft') : ''
+  endfunction
+
+  function! LightlineFileencoding()
+    return winwidth(0) > 70 ? (&fenc !=# '' ? &fenc : &enc) : ''
+  endfunction
+
+  function! LightlineMode()
+    return winwidth(0) > 60 ? lightline#mode() : ''
+  endfunction
+
+  function! LightlineBranchname()
+    return gitbranch#name()
+  endfunction
+endfunction
 
 function! s:fzf_config()
   function! s:opened_file_directiroy_files()
@@ -235,15 +317,15 @@ endfunction
 
 function! s:eskk_config()
   let g:eskk#dictionary = {
-  \ 'path': "/Users/himanoa/Library/Application\ Support/AquaSKK/skk-jisyo.utf-8",
-  \ 'encoding': 'utf-8'
-  \}
+        \ 'path': "/Users/himanoa/Library/Application\ Support/AquaSKK/skk-jisyo.utf-8",
+        \ 'encoding': 'utf-8'
+        \}
 
-	let g:eskk#large_dictionary = {
-	\	'path': "/Users/himanoa/Documents/SKK-JISYO.L",
-	\	'sorted': 1,
-	\	'encoding': 'euc-jp',
-	\}
+  let g:eskk#large_dictionary = {
+        \	'path': "/Users/himanoa/Documents/SKK-JISYO.L",
+        \	'sorted': 1,
+        \	'encoding': 'euc-jp',
+        \}
 endfunction
 
 function! s:npm_which(command_name) 
@@ -258,29 +340,39 @@ function! s:npm_which(command_name)
   return ''
 endfunction
 
+function! s:nvim_treesitter() 
+  lua <<EOF
+  require'nvim-treesitter.configs'.setup {
+    highlight = {
+    enable = true
+    }
+  }
+EOF
+endfunction
+
 function! s:neomake_config()
   call neomake#configure#automake('rw')
   let l:eslint_path = s:npm_which('eslint')
   if strlen(l:eslint_path)
     echo l:eslint_path
     let g:neomake_typescriptreact_eslint_maker = {
-    \   'exe'           : l:eslint_path,
-    \   'args'          : ['-f', 'compact', expand('%')],
-    \   'errorformat': '%E%f: line %l\, col %c\, Error - %m,',
-    \   'buffer_output' : 1,
-    \ }
+          \   'exe'           : l:eslint_path,
+          \   'args'          : ['-f', 'compact', expand('%')],
+          \   'errorformat': '%E%f: line %l\, col %c\, Error - %m,',
+          \   'buffer_output' : 1,
+          \ }
     let g:neomake_typescript_eslint_maker = {
-    \   'exe'           : l:eslint_path,
-    \   'args'          : ['-f', 'compact', expand('%')],
-    \   'errorformat': '%E%f: line %l\, col %c\, Error - %m,',
-    \   'buffer_output' : 1,
-    \ }
+          \   'exe'           : l:eslint_path,
+          \   'args'          : ['-f', 'compact', expand('%')],
+          \   'errorformat': '%E%f: line %l\, col %c\, Error - %m,',
+          \   'buffer_output' : 1,
+          \ }
     let g:neomake_javascript_eslint_maker = {
-    \   'exe'           : l:eslint_path,
-    \   'args'          : ['-f', 'compact', expand('%')],
-    \   'errorformat': '%E%f: line %l\, col %c\, Error - %m,',
-    \   'buffer_output' : 1,
-    \ }
+          \   'exe'           : l:eslint_path,
+          \   'args'          : ['-f', 'compact', expand('%')],
+          \   'errorformat': '%E%f: line %l\, col %c\, Error - %m,',
+          \   'buffer_output' : 1,
+          \ }
   endif
 
   augroup typescript_neomake
@@ -304,6 +396,8 @@ call s:coc_config()
 call s:memolist_config()
 call s:emmet_config()
 call s:fern_config()
+call s:nvim_treesitter()
+call s:lightline_config()
 if has('macunix')
   call s:eskk_config()
 endif
