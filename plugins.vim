@@ -54,6 +54,8 @@ Plug 'git@github.com:alp-inc/z-labo-himanoa.git', { 'do': 'mv alp-vim/* .' }
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 Plug 'itchyny/vim-gitbranch'
 Plug 'niklaas/lightline-gitdiff'
+Plug 'SirVer/ultisnips'
+Plug 'honza/vim-snippets'
 
 " Initialize plugin system
 call plug#end()
@@ -388,6 +390,15 @@ function! s:neomake_config()
   augroup END
 endfunction
 
+function! s:utilsnips_config()
+  let g:UltiSnipsExpandTrigger="<tab>"
+  let g:UltiSnipsJumpForwardTrigger="<c-b>"
+  let g:UltiSnipsJumpBackwardTrigger="<c-z>"
+
+  " If you want :UltiSnipsEdit to split your window.
+  let g:UltiSnipsEditSplit="vertical"
+endfunction
+
 call s:operator_surround_config()
 call s:operator_camelize_config()
 call s:fzf_config()
@@ -398,7 +409,7 @@ call s:emmet_config()
 call s:fern_config()
 call s:nvim_treesitter()
 call s:lightline_config()
+call s:utilsnips_config()
 if has('macunix')
   call s:eskk_config()
 endif
-
