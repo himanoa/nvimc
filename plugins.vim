@@ -8,7 +8,6 @@ Plug 'freeo/vim-kalisi'
 Plug 'cohama/lexima.vim'
 Plug 'Shougo/denite.nvim'
 Plug 'cocopon/iceberg.vim'
-Plug 'raghur/vim-ghost', {'do': ':GhostInstall'}
 
 Plug 'tpope/vim-fugitive'
 
@@ -50,12 +49,15 @@ Plug 'heraldofsolace/nisha-vim'
 Plug 'jparise/vim-graphql'
 Plug 'slim-template/vim-slim'
 Plug 'tyru/caw.vim'
-Plug 'git@github.com:alp-inc/z-labo-himanoa.git', { 'do': 'mv alp-vim/* .' }
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 Plug 'itchyny/vim-gitbranch'
 Plug 'niklaas/lightline-gitdiff'
 Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
+Plug '~/src/github.com/alp-inc/z-labo-himanoa/alp-vim'
+Plug 'skywind3000/asyncrun.vim'
+Plug 'glts/vim-textobj-comment'
+Plug 'nocksock/bloop-vim'
 
 " Initialize plugin system
 call plug#end()
@@ -152,6 +154,7 @@ function! s:fzf_config()
 endfunction
 
 function! s:coc_config()
+  let g:coc_default_semantic_highlight_groups = 1
   " TextEdit might fail if hidden is not set.
   set hidden
 
@@ -211,6 +214,8 @@ function! s:coc_config()
 
   " Use K to show documentation in preview window.
   nnoremap <silent> K :call <SID>show_documentation()<CR>
+  nnoremap <silent> L :CocAction<CR>
+  nnoremap <silent> M :CocCommand<CR>
 
   function! s:show_documentation()
     if (index(['vim','help'], &filetype) >= 0)
@@ -399,6 +404,10 @@ function! s:utilsnips_config()
   let g:UltiSnipsEditSplit="vertical"
 endfunction
 
+function! s:asyncrun_config()
+  let g:asyncrun_open = 10
+endfunction
+
 call s:operator_surround_config()
 call s:operator_camelize_config()
 call s:fzf_config()
@@ -410,6 +419,7 @@ call s:fern_config()
 call s:nvim_treesitter()
 call s:lightline_config()
 call s:utilsnips_config()
+call s:asyncrun_config()
 if has('macunix')
   call s:eskk_config()
 endif

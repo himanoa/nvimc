@@ -2,12 +2,20 @@
   "rust-analyzer": {
     "server": {
       "path": "/bin/rust-analyzer"
+    },
+    "procMacro": {
+      "ignored": {"async_trait": ["async_trait"]}
     }
   },
   "languageserver": {
     "ocaml": {
       "command": "ocamllsp",
       "filetypes": ["ocaml", "reason"]
+    }
+  },
+  "typescript": {
+    "preferences": {
+      "importModuleSpecifier": "non-relative"
     }
   },
   "emmet": {

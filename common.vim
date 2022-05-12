@@ -113,7 +113,7 @@ autocmd bufWritePre * :silent! %s/\r//g
 au CursorHold,CursorHoldI * checktime
 :highlight LineNr guifg=#fff
 
-colorscheme nisha
+colorscheme bloop
 highlight DiffAdd guifg=NONE guibg=#334539
 highlight DiffChange guifg=NONE guibg=#334539
 highlight DiffDelete guifg=NONE guibg=#45333a
@@ -125,4 +125,8 @@ if executable('rg')
     let &grepprg = 'rg --vimgrep --hidden'
     set grepformat=%f:%l:%c:%m
 endif
+
 command! -nargs=1 -complete=file Rename f <args>|call delete(expand('#'))
+
+command! Todo :new ~/todo.md
+command! Build :AsyncRun ./himanoa-build
