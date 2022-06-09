@@ -113,8 +113,8 @@ function! s:lightline_config()
   endfunction
 
   function! LightlineFugitive()
-    if &ft !~? 'vimfiler\|gundo' && exists('*fugitive#head')
-      return fugitive#head()
+    if &ft !~? 'vimfiler\|gundo' && exists('*FugitiveHead')
+      return FugitiveHead()
     else
       return ''
     endif
@@ -214,7 +214,12 @@ function! s:coc_config()
 
   " Use K to show documentation in preview window.
   nnoremap <silent> K :call <SID>show_documentation()<CR>
-  nnoremap <silent> L :CocAction<CR>
+  nmap <silent> L <Plug>(coc-codeaction-line)
+  nmap <silent> CL <Plug>(coc-codeaction-line)
+  nmap <silent> CC <Plug>(coc-codeaction-cursor)
+  nmap <silent> CA <Plug>(coc-codeaction)
+  nmap <silent> CS <Plug>(coc-selected)
+  nmap <silent> <C-w><C-k> <Plug>(coc-float-jump)
   nnoremap <silent> M :CocCommand<CR>
 
   function! s:show_documentation()
