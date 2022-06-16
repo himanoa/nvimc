@@ -58,6 +58,7 @@ Plug '~/src/github.com/alp-inc/z-labo-himanoa/alp-vim'
 Plug 'skywind3000/asyncrun.vim'
 Plug 'glts/vim-textobj-comment'
 Plug 'nocksock/bloop-vim'
+Plug 'tpope/vim-abolish'
 
 " Initialize plugin system
 call plug#end()
