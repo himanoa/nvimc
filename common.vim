@@ -5,7 +5,6 @@ set relativenumber
 set encoding=utf-8
 set fileencoding=utf-8
 set showmatch
-set clipboard+=unnamedplus
 set noswapfile
 set expandtab
 set tabstop=2
@@ -130,3 +129,32 @@ command! -nargs=1 -complete=file Rename f <args>|call delete(expand('#'))
 
 command! Todo :new ~/todo.md
 command! Build :AsyncRun ./himanoa-build
+
+let s:opened_window = 0
+
+function! s:head_commit_msg()
+  if s:opened_window != 0
+    call nvim_win_close(s:opened_window, v:true)
+  endif
+  let buf = nvim_create_buf(v:false, v:true)
+  let msg = system("git log -1 --format=\%s")
+  let head = "# 今やっていること"
+  call nvim_buf_set_option(buf, 'filetype', 'markdown')
+  call nvim_buf_set_lines(buf, 0, -1, v:true, [head, "", msg, "", ""])
+  let opts = {'relative': 'cursor', 'width': max([strwidth(head), strwidth(msg)]) + 1, 'height': 4, 'col': 2, 'row': 1, 'anchor': 'NW', 'style': 'minimal', 'border': 'single'}
+  let win = nvim_open_win(buf, 0, opts)
+  let s:opened_window = win
+  " call nvim_win_set_option(win, 'winhl', 'Normal:MyHighlight')
+endfunction
+
+function! s:close_head_commit_msg_floating_window()
+  if s:opened_window != 0
+    call nvim_win_close(s:opened_window, v:true)
+    let s:opened_window = 0
+    return
+  endif
+endfunction
+
+command! HeadCommitMsg :call s:head_commit_msg()
+autocmd! CursorMoved,CursorMovedI * call s:close_head_commit_msg_floating_window()
+noremap <S-b> :<C-u>HeadCommitMsg<CR>

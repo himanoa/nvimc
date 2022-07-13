@@ -11,6 +11,11 @@
     "ocaml": {
       "command": "ocamllsp",
       "filetypes": ["ocaml", "reason"]
+    },
+    "metals": {
+      "command": "metals-vim",
+      "rootPatterns": ["build.sbt"],
+      "filetypes": ["scala", "sbt"]
     }
   },
   "typescript": {

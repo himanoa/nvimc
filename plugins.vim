@@ -59,7 +59,9 @@ Plug 'skywind3000/asyncrun.vim'
 Plug 'glts/vim-textobj-comment'
 Plug 'nocksock/bloop-vim'
 Plug 'tpope/vim-abolish'
-
+Plug 'nvim-lua/plenary.nvim'
+Plug 'nvim-telescope/telescope.nvim'
+Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build' }
 " Initialize plugin system
 call plug#end()
 
@@ -142,16 +144,61 @@ function! s:lightline_config()
   endfunction
 endfunction
 
-function! s:fzf_config()
-  function! s:opened_file_directiroy_files()
-    execute 'FzfPreviewDirectoryFilesRpc '. expand('%:h')
-    return
-  endfunction
-  noremap <silent> <Space>f :<C-u>FzfPreviewProjectFiles<CR>
-  noremap <silent> <Space>c :<C-u>call <SID>opened_file_directiroy_files()<CR>
-  noremap <silent> <Space>g :<C-u>FzfPreviewProjectGrepRpc<space>
-  noremap <silent> <Space>r :<C-u>FzfPreviewProjectGrepRpc . --resume
-  noremap <silent> <C-b> :<C-u>FzfPreviewBuffersRpc<CR>
+function! s:telescope_config()
+lua << EOF
+require('telescope').setup({
+  defaults = {
+    layout_config = {
+      bottom_pane = {
+        height = 25,
+        preview_cutoff = 120,
+        prompt_position = "top"
+      },
+      center = {
+        height = 0.4,
+        preview_cutoff = 40,
+        prompt_position = "top",
+        width = 0.5
+      },
+      cursor = {
+        height = 0.9,
+        preview_cutoff = 40,
+        width = 0.8
+      },
+      horizontal = {
+        height = 0.9,
+        preview_cutoff = 120,
+        prompt_position = "bottom",
+        width = 0.8
+      },
+      vertical = {
+        height = 0.9,
+        preview_cutoff = 40,
+        prompt_position = "bottom",
+        width = 0.8
+      }
+    },
+    path_display= {"truncate"},
+    preview = false
+    -- other defaults configuration here
+  },
+  extensions = {
+    fzf = {
+      fuzzy = true,                    -- false will only do exact matching
+      override_generic_sorter = false, -- override the generic sorter
+      override_file_sorter = true,     -- override the file sorter
+      case_mode = "smart_case",        -- or "ignore_case" or "respect_case"
+    },
+  },
+})
+require('telescope').load_extension('fzf')
+EOF
+
+  noremap <silent> <Space>f <cmd>lua require('telescope.builtin').find_files()<cr>
+  noremap <silent> <Space>g <cmd>lua require('telescope.builtin').live_grep()<cr>
+  noremap <silent> <Space>b <cmd>lua require('telescope.builtin').buffers()<cr>
+  noremap <silent> <Space>h <cmd>lua require('telescope.builtin').help_tags()<cr>
+  noremap <silent> <Space>c <cmd>lua require('telescope.builtin').find_files({cwd = require('telescope.utils').buffer_dir()})<cr>
 endfunction
 
 function! s:coc_config()
@@ -416,7 +463,7 @@ endfunction
 
 call s:operator_surround_config()
 call s:operator_camelize_config()
-call s:fzf_config()
+call s:telescope_config()
 call s:neomake_config()
 call s:coc_config()
 call s:memolist_config()
