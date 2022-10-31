@@ -37,18 +37,18 @@ local mod = {
     end
   end,
   combine = function(...)
-    local combinedTable = {}
+    local combined_table = {}
     local arg = {...}
 
     for k, v in pairs(arg) do
       if type(v) == 'table' then
         for tk, tv in pairs(v) do
-            table.insert(combinedTable, tv)
+            table.insert(combined_table, tv)
         end
       end
     end
 
-    return combinedTable
+    return combined_table
   end
 }
 
