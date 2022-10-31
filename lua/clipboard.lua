@@ -9,7 +9,7 @@ functional.pattern(1, {
     predicate = function()
       return system('uname -a | grep microsoft')
     end,
-    andThen = function()
+    and_then = function()
       vim.cmd [[
         let g:clipboard = {
               \   'name': 'myClipboard',

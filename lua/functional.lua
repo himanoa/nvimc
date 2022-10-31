@@ -32,9 +32,23 @@ local mod = {
 
     for _,pattern in pairs(patterns) do
       if pattern.predicate(value) then
-        pattern.andThen(value)
+        pattern.and_then(value)
       end
     end
+  end,
+  combine = function(...)
+    local combinedTable = {}
+    local arg = {...}
+
+    for k, v in pairs(arg) do
+      if type(v) == 'table' then
+        for tk, tv in pairs(v) do
+            table.insert(combinedTable, tv)
+        end
+      end
+    end
+
+    return combinedTable
   end
 }
 

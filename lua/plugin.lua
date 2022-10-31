@@ -1,0 +1,217 @@
+local functional = require('functional')
+
+local ensure_packer = function()
+  local fn = vim.fn
+  local install_path = fn.stdpath('data')..'/site/pack/packer/start/packer.nvim'
+  if fn.empty(fn.glob(install_path)) > 0 then
+    fn.system({'git', 'clone', '--depth', '1', 'https://github.com/wbthomason/packer.nvim', install_path})
+    vim.cmd [[packadd packer.nvim]]
+    return true
+  end
+  return false
+end
+
+local packer_bootstrap = ensure_packer()
+
+return require('packer').startup(function(use)
+  use {'wbthomason/packer.nvim'}
+  use {'junegunn/vim-easy-align'}
+
+  use {'rhysd/clever-f.vim'}
+  use {'freeo/vim-kalisi'}
+  use {'cohama/lexima.vim'}
+  use {'Shougo/denite.nvim'}
+  use {'cocopon/iceberg.vim'}
+
+  use {'tpope/vim-fugitive'}
+
+  use {'Shougo/neomru.vim'}
+
+  use {'jceb/vim-hier'}
+
+  use {'tmsanrinsha/yaml.vim'}
+
+  use {'kana/vim-textobj-user'}
+
+  use {'kana/vim-operator-user'}
+  use {'vim-scripts/textobj-verticalbar'}
+  use {'tyru/operator-camelize.vim'}
+  use {'editorconfig/editorconfig-vim'}
+  use {'sgur/vim-textobj-parameter'}
+  use {'itchyny/lightline.vim', config = function ()
+    vim.cmd [[
+      let g:lightline#gitdiff#indicator_added = '+'
+      let g:lightline#gitdiff#indicator_deleted = '-'
+      let g:lightline#gitdiff#separator = ' '
+      let g:lightline = {
+              \ 'colorscheme': 'wombat',
+              \ 'mode_map': {'c': 'NORMAL'},
+              \ 'active': {
+              \   'left': [ [ 'branchname' ], [ 'filename' ], ['gitdiff'] ],
+              \   'right': [ ['filetype'], ['lineinfo'] ]
+              \ },
+              \ 'component_function': {
+              \   'modified': 'LightlineModified',
+              \   'readonly': 'LightlineReadonly',
+              \   'fugitive': 'LightlineFugitive',
+              \   'filename': 'LightlineFilename',
+              \   'branchname': 'LightlineBranchname'
+              \ },
+              \ 'component': {
+              \   'gitstatus': '%<%{lightline_gitdiff#get_status()}',
+              \ },
+              \ 'component_expand': {
+              \   'gitdiff': 'lightline#gitdiff#get'
+              \ },
+              \ 'component_type': {
+              \   'gitdiff': 'middle'
+              \ },
+              \ 'component_visible_condition': {
+              \   'gitstatus': 'lightline_gitdiff#get_status() !=# ""',
+              \ },
+              \ }
+
+      function! LightlineModified()
+        return &ft =~ 'help\|vimfiler\|gundo' ? '' : &modified ? '+' : &modifiable ? '' : '-'
+      endfunction
+
+      function! LightlineReadonly()
+        return &ft !~? 'help\|vimfiler\|gundo' && &readonly ? 'x' : ''
+      endfunction
+
+      function! LightlineFilename()
+        return ('' != LightlineReadonly() ? LightlineReadonly() . ' ' : '') .
+              \ (&ft == 'vimfiler' ? vimfiler#get_status_string() :
+              \  &ft == 'unite' ? unite#get_status_string() :
+              \  &ft == 'vimshell' ? vimshell#get_status_string() :
+              \ '' != expand('%:t') ? expand('%') : '[No Name]') .
+              \ ('' != LightlineModified() ? ' ' . LightlineModified() : '')
+      endfunction
+
+      function! LightlineFugitive()
+        if &ft !~? 'vimfiler\|gundo' && exists('*FugitiveHead')
+          return FugitiveHead()
+        else
+          return ''
+        endif
+      endfunction
+
+      function! LightlineFileformat()
+        return winwidth(0) > 70 ? &fileformat : ''
+      endfunction
+
+      function! LightlineFiletype()
+        return winwidth(0) > 70 ? (&filetype !=# '' ? &filetype : 'no ft') : ''
+      endfunction
+
+      function! LightlineFileencoding()
+        return winwidth(0) > 70 ? (&fenc !=# '' ? &fenc : &enc) : ''
+      endfunction
+
+      function! LightlineMode()
+        return winwidth(0) > 60 ? lightline#mode() : ''
+      endfunction
+
+      function! LightlineBranchname()
+        return gitbranch#name()
+      endfunction
+    ]]
+  end}
+  use {'neomake/neomake'}
+
+  use {'junegunn/fzf'}
+  use {'yuki-yano/fzf-preview.vim', branch = 'release/rpc' }
+  use {'antoinemadec/coc-fzf'}
+  use {'rhysd/vim-operator-surround'}
+  use {'mattn/emmet-vim', ft = {"html", "vue"} }
+  use {'airblade/vim-gitgutter'}
+  use {'posva/vim-vue'}
+  use {'reedes/vim-colors-pencil'}
+  use {'HerringtonDarkholme/yats.vim'}
+  use {'qpkorr/vim-bufkill'}
+  use {'tpope/vim-endwise'}
+  use {'neoclide/coc.nvim', branch = "master", run = ":! yarn install --frozen-lockfile", config = function()
+    vim.cmd [[
+      autocmd CursorHold * silent call CocActionAsync('highlight')
+    ]]
+  end}
+  use {'lambdalisue/fern.vim', branch = 'main'}
+  use {'junkblocker/patchreview-vim'}
+  use {'chemzqm/denite-git'}
+  use {'himanoa/goshiteki'}
+  use {'ruanyl/vim-gh-line'}
+  use {'knsh14/vim-github-link'}
+  use {'heraldofsolace/nisha-vim'}
+  use {'jparise/vim-graphql'}
+  use {'slim-template/vim-slim'}
+  use {'tyru/caw.vim'}
+  use {'nvim-treesitter/nvim-treesitter', run = ':TSUpdate', config = function()
+  require('nvim-treesitter.configs').setup {
+    highlight = {
+    enable = true
+    }
+  }
+  end}
+  use {'itchyny/vim-gitbranch'}
+  use {'niklaas/lightline-gitdiff'}
+  use {'SirVer/ultisnips'}
+  use {'honza/vim-snippets'}
+  use {'~/src/github.com/alp-inc/z-labo-himanoa/alp-vim'}
+  use {'skywind3000/asyncrun.vim'}
+  use {'glts/vim-textobj-comment'}
+  use {'nocksock/bloop-vim'}
+  use {'tpope/vim-abolish'}
+  use {'nvim-lua/plenary.nvim'}
+  use {'nvim-telescope/telescope.nvim', config = function()
+    require('telescope').setup({
+      defaults = {
+        layout_config = {
+          bottom_pane = {
+            height = 25,
+            preview_cutoff = 120,
+            prompt_position = "top"
+          },
+          center = {
+            height = 0.4,
+            preview_cutoff = 40,
+            prompt_position = "top",
+            width = 0.5
+          },
+          cursor = {
+            height = 0.9,
+            preview_cutoff = 40,
+            width = 0.8
+          },
+          horizontal = {
+            height = 0.9,
+            preview_cutoff = 120,
+            prompt_position = "bottom",
+            width = 0.8
+          },
+          vertical = {
+            height = 0.9,
+            preview_cutoff = 40,
+            prompt_position = "bottom",
+            width = 0.8
+          }
+        },
+        path_display= {"truncate"},
+        preview = false
+        -- other defaults configuration here
+      },
+      extensions = {
+        fzf = {
+          fuzzy = true,                    -- false will only do exact matching
+          override_generic_sorter = false, -- override the generic sorter
+          override_file_sorter = true,     -- override the file sorter
+          case_mode = "smart_case",        -- or "ignore_case" or "respect_case"
+        },
+      },
+    });
+    require('telescope').load_extension('fzf')
+  end}
+  use {'nvim-telescope/telescope-fzf-native.nvim', run =  ':! cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build'}
+  if packer_bootstrap then
+    require('packer').sync()
+  end
+end)

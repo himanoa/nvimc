@@ -54,6 +54,3 @@ vim.cmd [[
   highlight DiffLine guifg=NONE guibg=#8fa1b3
 ]]
 
-vim.cmd [[
-  colorscheme bloop
-]]

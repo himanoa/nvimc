@@ -6,9 +6,8 @@ function! s:source_rc(rc_file_name)
     endif
 endfunction
 
-call s:source_rc('plugins.vim')
-
 lua << EOF
+  require('plugin')
   require('general')
   require('keybind')
   require('command')
