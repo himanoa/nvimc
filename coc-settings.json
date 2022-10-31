@@ -1,8 +1,5 @@
 {
   "rust-analyzer": {
-    "server": {
-      "path": "/bin/rust-analyzer"
-    },
     "procMacro": {
       "ignored": {"async_trait": ["async_trait"]}
     }
@@ -13,7 +10,7 @@
       "filetypes": ["ocaml", "reason"]
     },
     "metals": {
-      "command": "metals-vim",
+      "command": "metals",
       "rootPatterns": ["build.sbt"],
       "filetypes": ["scala", "sbt"]
     }
