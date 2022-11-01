@@ -99,17 +99,6 @@ _G.packer_plugins = {
     path = "/home/himanoa/.local/share/nvim/site/pack/packer/start/clever-f.vim",
     url = "https://github.com/rhysd/clever-f.vim"
   },
-  ["coc-fzf"] = {
-    loaded = true,
-    path = "/home/himanoa/.local/share/nvim/site/pack/packer/start/coc-fzf",
-    url = "https://github.com/antoinemadec/coc-fzf"
-  },
-  ["coc.nvim"] = {
-    config = { "\27LJ\2\nk\0\0\3\0\3\0\0056\0\0\0009\0\1\0'\2\2\0B\0\2\1K\0\1\0L      autocmd CursorHold * silent call CocActionAsync('highlight')\n    \bcmd\bvim\0" },
-    loaded = true,
-    path = "/home/himanoa/.local/share/nvim/site/pack/packer/start/coc.nvim",
-    url = "https://github.com/neoclide/coc.nvim"
-  },
   ["denite-git"] = {
     loaded = true,
     path = "/home/himanoa/.local/share/nvim/site/pack/packer/start/denite-git",
@@ -173,6 +162,17 @@ _G.packer_plugins = {
     path = "/home/himanoa/.local/share/nvim/site/pack/packer/start/lightline.vim",
     url = "https://github.com/itchyny/lightline.vim"
   },
+  ["mason-lspconfig.nvim"] = {
+    loaded = true,
+    path = "/home/himanoa/.local/share/nvim/site/pack/packer/start/mason-lspconfig.nvim",
+    url = "https://github.com/williamboman/mason-lspconfig.nvim"
+  },
+  ["mason.nvim"] = {
+    config = { "\27LJ\2\n=\0\0\3\0\3\0\0066\0\0\0'\2\1\0B\0\2\0029\1\2\0B\1\1\1K\0\1\0\nsetup\20mason-lspconfig\frequire\0" },
+    loaded = true,
+    path = "/home/himanoa/.local/share/nvim/site/pack/packer/start/mason.nvim",
+    url = "https://github.com/williamboman/mason.nvim"
+  },
   neomake = {
     loaded = true,
     path = "/home/himanoa/.local/share/nvim/site/pack/packer/start/neomake",
@@ -187,6 +187,11 @@ _G.packer_plugins = {
     loaded = true,
     path = "/home/himanoa/.local/share/nvim/site/pack/packer/start/nisha-vim",
     url = "https://github.com/heraldofsolace/nisha-vim"
+  },
+  ["nvim-lspconfig"] = {
+    loaded = true,
+    path = "/home/himanoa/.local/share/nvim/site/pack/packer/start/nvim-lspconfig",
+    url = "https://github.com/neovim/nvim-lspconfig"
   },
   ["nvim-treesitter"] = {
     config = { "\27LJ\2\ni\0\0\4\0\6\0\t6\0\0\0'\2\1\0B\0\2\0029\0\2\0005\2\4\0005\3\3\0=\3\5\2B\0\2\1K\0\1\0\14highlight\1\0\0\1\0\1\venable\2\nsetup\28nvim-treesitter.configs\frequire\0" },
@@ -220,7 +225,7 @@ _G.packer_plugins = {
     url = "https://github.com/nvim-telescope/telescope-fzf-native.nvim"
   },
   ["telescope.nvim"] = {
-    config = { "\27LJ\2\nÎ\5\0\0\6\0\25\0!6\0\0\0'\2\1\0B\0\2\0029\0\2\0005\2\18\0005\3\14\0005\4\4\0005\5\3\0=\5\5\0045\5\6\0=\5\a\0045\5\b\0=\5\t\0045\5\n\0=\5\v\0045\5\f\0=\5\r\4=\4\15\0035\4\16\0=\4\17\3=\3\19\0025\3\21\0005\4\20\0=\4\22\3=\3\23\2B\0\2\0016\0\0\0'\2\1\0B\0\2\0029\0\24\0'\2\22\0B\0\2\1K\0\1\0\19load_extension\15extensions\bfzf\1\0\0\1\0\4\28override_generic_sorter\1\nfuzzy\2\14case_mode\15smart_case\25override_file_sorter\2\rdefaults\1\0\0\17path_display\1\2\0\0\rtruncate\18layout_config\1\0\1\fpreview\1\rvertical\1\0\4\vheight\4Í™³æ\fÌ™³ÿ\3\nwidth\4š³æÌ\t™³¦ÿ\3\20prompt_position\vbottom\19preview_cutoff\3(\15horizontal\1\0\4\vheight\4Í™³æ\fÌ™³ÿ\3\nwidth\4š³æÌ\t™³¦ÿ\3\20prompt_position\vbottom\19preview_cutoff\3x\vcursor\1\0\3\vheight\4Í™³æ\fÌ™³ÿ\3\nwidth\4š³æÌ\t™³¦ÿ\3\19preview_cutoff\3(\vcenter\1\0\4\vheight\4š³æÌ\t™³æþ\3\nwidth\4\0€€€ÿ\3\20prompt_position\btop\19preview_cutoff\3(\16bottom_pane\1\0\0\1\0\3\vheight\3\25\20prompt_position\btop\19preview_cutoff\3x\nsetup\14telescope\frequire\0" },
+    config = { "\27LJ\2\nÎ\5\0\0\6\0\25\0!6\0\0\0'\2\1\0B\0\2\0029\0\2\0005\2\18\0005\3\14\0005\4\4\0005\5\3\0=\5\5\0045\5\6\0=\5\a\0045\5\b\0=\5\t\0045\5\n\0=\5\v\0045\5\f\0=\5\r\4=\4\15\0035\4\16\0=\4\17\3=\3\19\0025\3\21\0005\4\20\0=\4\22\3=\3\23\2B\0\2\0016\0\0\0'\2\1\0B\0\2\0029\0\24\0'\2\22\0B\0\2\1K\0\1\0\19load_extension\15extensions\bfzf\1\0\0\1\0\4\nfuzzy\2\14case_mode\15smart_case\25override_file_sorter\2\28override_generic_sorter\1\rdefaults\1\0\0\17path_display\1\2\0\0\rtruncate\18layout_config\1\0\1\fpreview\1\rvertical\1\0\4\nwidth\4š³æÌ\t™³¦ÿ\3\20prompt_position\vbottom\19preview_cutoff\3(\vheight\4Í™³æ\fÌ™³ÿ\3\15horizontal\1\0\4\nwidth\4š³æÌ\t™³¦ÿ\3\20prompt_position\vbottom\19preview_cutoff\3x\vheight\4Í™³æ\fÌ™³ÿ\3\vcursor\1\0\3\nwidth\4š³æÌ\t™³¦ÿ\3\19preview_cutoff\3(\vheight\4Í™³æ\fÌ™³ÿ\3\vcenter\1\0\4\nwidth\4\0€€€ÿ\3\20prompt_position\btop\19preview_cutoff\3(\vheight\4š³æÌ\t™³æþ\3\16bottom_pane\1\0\0\1\0\3\20prompt_position\btop\19preview_cutoff\3x\vheight\3\25\nsetup\14telescope\frequire\0" },
     loaded = true,
     path = "/home/himanoa/.local/share/nvim/site/pack/packer/start/telescope.nvim",
     url = "https://github.com/nvim-telescope/telescope.nvim"
@@ -353,28 +358,28 @@ _G.packer_plugins = {
 }
 
 time([[Defining packer_plugins]], false)
--- Config for: coc.nvim
-time([[Config for coc.nvim]], true)
-try_loadstring("\27LJ\2\nk\0\0\3\0\3\0\0056\0\0\0009\0\1\0'\2\2\0B\0\2\1K\0\1\0L      autocmd CursorHold * silent call CocActionAsync('highlight')\n    \bcmd\bvim\0", "config", "coc.nvim")
-time([[Config for coc.nvim]], false)
--- Config for: telescope.nvim
-time([[Config for telescope.nvim]], true)
-try_loadstring("\27LJ\2\nÎ\5\0\0\6\0\25\0!6\0\0\0'\2\1\0B\0\2\0029\0\2\0005\2\18\0005\3\14\0005\4\4\0005\5\3\0=\5\5\0045\5\6\0=\5\a\0045\5\b\0=\5\t\0045\5\n\0=\5\v\0045\5\f\0=\5\r\4=\4\15\0035\4\16\0=\4\17\3=\3\19\0025\3\21\0005\4\20\0=\4\22\3=\3\23\2B\0\2\0016\0\0\0'\2\1\0B\0\2\0029\0\24\0'\2\22\0B\0\2\1K\0\1\0\19load_extension\15extensions\bfzf\1\0\0\1\0\4\28override_generic_sorter\1\nfuzzy\2\14case_mode\15smart_case\25override_file_sorter\2\rdefaults\1\0\0\17path_display\1\2\0\0\rtruncate\18layout_config\1\0\1\fpreview\1\rvertical\1\0\4\vheight\4Í™³æ\fÌ™³ÿ\3\nwidth\4š³æÌ\t™³¦ÿ\3\20prompt_position\vbottom\19preview_cutoff\3(\15horizontal\1\0\4\vheight\4Í™³æ\fÌ™³ÿ\3\nwidth\4š³æÌ\t™³¦ÿ\3\20prompt_position\vbottom\19preview_cutoff\3x\vcursor\1\0\3\vheight\4Í™³æ\fÌ™³ÿ\3\nwidth\4š³æÌ\t™³¦ÿ\3\19preview_cutoff\3(\vcenter\1\0\4\vheight\4š³æÌ\t™³æþ\3\nwidth\4\0€€€ÿ\3\20prompt_position\btop\19preview_cutoff\3(\16bottom_pane\1\0\0\1\0\3\vheight\3\25\20prompt_position\btop\19preview_cutoff\3x\nsetup\14telescope\frequire\0", "config", "telescope.nvim")
-time([[Config for telescope.nvim]], false)
 -- Config for: lightline.vim
 time([[Config for lightline.vim]], true)
 try_loadstring("\27LJ\2\nð\21\0\0\3\0\3\0\0056\0\0\0009\0\1\0'\2\2\0B\0\2\1K\0\1\0Ð\21      let g:lightline#gitdiff#indicator_added = '+'\n      let g:lightline#gitdiff#indicator_deleted = '-'\n      let g:lightline#gitdiff#separator = ' '\n      let g:lightline = {\n              \\ 'colorscheme': 'wombat',\n              \\ 'mode_map': {'c': 'NORMAL'},\n              \\ 'active': {\n              \\   'left': [ [ 'branchname' ], [ 'filename' ], ['gitdiff'] ],\n              \\   'right': [ ['filetype'], ['lineinfo'] ]\n              \\ },\n              \\ 'component_function': {\n              \\   'modified': 'LightlineModified',\n              \\   'readonly': 'LightlineReadonly',\n              \\   'fugitive': 'LightlineFugitive',\n              \\   'filename': 'LightlineFilename',\n              \\   'branchname': 'LightlineBranchname'\n              \\ },\n              \\ 'component': {\n              \\   'gitstatus': '%<%{lightline_gitdiff#get_status()}',\n              \\ },\n              \\ 'component_expand': {\n              \\   'gitdiff': 'lightline#gitdiff#get'\n              \\ },\n              \\ 'component_type': {\n              \\   'gitdiff': 'middle'\n              \\ },\n              \\ 'component_visible_condition': {\n              \\   'gitstatus': 'lightline_gitdiff#get_status() !=# \"\"',\n              \\ },\n              \\ }\n\n      function! LightlineModified()\n        return &ft =~ 'help\\|vimfiler\\|gundo' ? '' : &modified ? '+' : &modifiable ? '' : '-'\n      endfunction\n\n      function! LightlineReadonly()\n        return &ft !~? 'help\\|vimfiler\\|gundo' && &readonly ? 'x' : ''\n      endfunction\n\n      function! LightlineFilename()\n        return ('' != LightlineReadonly() ? LightlineReadonly() . ' ' : '') .\n              \\ (&ft == 'vimfiler' ? vimfiler#get_status_string() :\n              \\  &ft == 'unite' ? unite#get_status_string() :\n              \\  &ft == 'vimshell' ? vimshell#get_status_string() :\n              \\ '' != expand('%:t') ? expand('%') : '[No Name]') .\n              \\ ('' != LightlineModified() ? ' ' . LightlineModified() : '')\n      endfunction\n\n      function! LightlineFugitive()\n        if &ft !~? 'vimfiler\\|gundo' && exists('*FugitiveHead')\n          return FugitiveHead()\n        else\n          return ''\n        endif\n      endfunction\n\n      function! LightlineFileformat()\n        return winwidth(0) > 70 ? &fileformat : ''\n      endfunction\n\n      function! LightlineFiletype()\n        return winwidth(0) > 70 ? (&filetype !=# '' ? &filetype : 'no ft') : ''\n      endfunction\n\n      function! LightlineFileencoding()\n        return winwidth(0) > 70 ? (&fenc !=# '' ? &fenc : &enc) : ''\n      endfunction\n\n      function! LightlineMode()\n        return winwidth(0) > 60 ? lightline#mode() : ''\n      endfunction\n\n      function! LightlineBranchname()\n        return gitbranch#name()\n      endfunction\n    \bcmd\bvim\0", "config", "lightline.vim")
 time([[Config for lightline.vim]], false)
+-- Config for: telescope.nvim
+time([[Config for telescope.nvim]], true)
+try_loadstring("\27LJ\2\nÎ\5\0\0\6\0\25\0!6\0\0\0'\2\1\0B\0\2\0029\0\2\0005\2\18\0005\3\14\0005\4\4\0005\5\3\0=\5\5\0045\5\6\0=\5\a\0045\5\b\0=\5\t\0045\5\n\0=\5\v\0045\5\f\0=\5\r\4=\4\15\0035\4\16\0=\4\17\3=\3\19\0025\3\21\0005\4\20\0=\4\22\3=\3\23\2B\0\2\0016\0\0\0'\2\1\0B\0\2\0029\0\24\0'\2\22\0B\0\2\1K\0\1\0\19load_extension\15extensions\bfzf\1\0\0\1\0\4\nfuzzy\2\14case_mode\15smart_case\25override_file_sorter\2\28override_generic_sorter\1\rdefaults\1\0\0\17path_display\1\2\0\0\rtruncate\18layout_config\1\0\1\fpreview\1\rvertical\1\0\4\nwidth\4š³æÌ\t™³¦ÿ\3\20prompt_position\vbottom\19preview_cutoff\3(\vheight\4Í™³æ\fÌ™³ÿ\3\15horizontal\1\0\4\nwidth\4š³æÌ\t™³¦ÿ\3\20prompt_position\vbottom\19preview_cutoff\3x\vheight\4Í™³æ\fÌ™³ÿ\3\vcursor\1\0\3\nwidth\4š³æÌ\t™³¦ÿ\3\19preview_cutoff\3(\vheight\4Í™³æ\fÌ™³ÿ\3\vcenter\1\0\4\nwidth\4\0€€€ÿ\3\20prompt_position\btop\19preview_cutoff\3(\vheight\4š³æÌ\t™³æþ\3\16bottom_pane\1\0\0\1\0\3\20prompt_position\btop\19preview_cutoff\3x\vheight\3\25\nsetup\14telescope\frequire\0", "config", "telescope.nvim")
+time([[Config for telescope.nvim]], false)
 -- Config for: nvim-treesitter
 time([[Config for nvim-treesitter]], true)
 try_loadstring("\27LJ\2\ni\0\0\4\0\6\0\t6\0\0\0'\2\1\0B\0\2\0029\0\2\0005\2\4\0005\3\3\0=\3\5\2B\0\2\1K\0\1\0\14highlight\1\0\0\1\0\1\venable\2\nsetup\28nvim-treesitter.configs\frequire\0", "config", "nvim-treesitter")
 time([[Config for nvim-treesitter]], false)
+-- Config for: mason.nvim
+time([[Config for mason.nvim]], true)
+try_loadstring("\27LJ\2\n=\0\0\3\0\3\0\0066\0\0\0'\2\1\0B\0\2\0029\1\2\0B\1\1\1K\0\1\0\nsetup\20mason-lspconfig\frequire\0", "config", "mason.nvim")
+time([[Config for mason.nvim]], false)
 vim.cmd [[augroup packer_load_aucmds]]
 vim.cmd [[au!]]
   -- Filetype lazy-loads
 time([[Defining lazy-load filetype autocommands]], true)
-vim.cmd [[au FileType vue ++once lua require("packer.load")({'emmet-vim'}, { ft = "vue" }, _G.packer_plugins)]]
 vim.cmd [[au FileType html ++once lua require("packer.load")({'emmet-vim'}, { ft = "html" }, _G.packer_plugins)]]
+vim.cmd [[au FileType vue ++once lua require("packer.load")({'emmet-vim'}, { ft = "vue" }, _G.packer_plugins)]]
 time([[Defining lazy-load filetype autocommands]], false)
 vim.cmd("augroup END")
 

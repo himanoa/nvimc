@@ -8,15 +8,14 @@ local telescope_keybind = {
     { "<Space>c", "<Cmd>lua require('telescope.builtin').find_files({ cwd = require('telescope.utils').buffer_dir() })<CR>", { mode = "normal" } },
 }
 
-local coc_keybind = {
-  { "gd", "<Plug>(coc-definition)", { mode = 'normal' } },
-  { "gy", "<Plug>(coc-type-definition)", { mode = 'normal' } },
-  { "gi", "<Plug>(coc-implementation)", { mode = 'normal' } },
-  { "gr", "<Plug>(coc-references)", { mode = 'normal' } },
-  { "K", ":call CocAction('doHover')<CR>", { mode = 'normal' } },
-  { "L", "<Plug>(coc-codeaction-line)", { mode = 'normal' } },
-  { "<C-w><C-k>", "<Plug>(coc-float-jump)", { mode = 'normal' } },
-  { "M", ":CocCommand<CR>", { mode = 'normal' } },
+local lsp_keybind = {
+  { "gd", "<cmd>lua vim.lsp.buf.definition()<CR>", { mode = 'normal' } },
+  { "gy", "<cmd>lua vim.lsp.buf.type_definition()<CR>", { mode = 'normal' } },
+  { "gi", "<cmd>lua vim.lsp.buf.implementation()<CR>", { mode = 'normal' } },
+  { "gr", "<cmd>lua vim.lsp.buf.references()<CR>", { mode = 'normal' } },
+  { "K", "<cmd>lua vim.lsp.buf.hover()<CR>", { mode = 'normal' } },
+  { "L", "<cmd>lua vim.lsp.diagnostic.signature_help()()<CR>", { mode = 'normal' } },
+  { "M", "<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>", { mode = 'normal' } },
 }
 
 local operator_camelize_keybind = {
@@ -43,11 +42,11 @@ functional.map(
     { "<Space>,", "<Cmd>noh<CR>", { mode = "normal" } },
   },
     telescope_keybind,
-    coc_keybind,
+    lsp_keybind,
     operator_camelize_keybind,
     operator_surround_keybind
   ),
-  function(key,setting)
+  function(_,setting)
     functional.pattern(setting, {
       {
         predicate = function(s) return s[3].mode == "normal"; end ,

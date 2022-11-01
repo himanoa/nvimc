@@ -121,7 +121,6 @@ return require('packer').startup(function(use)
 
   use {'junegunn/fzf'}
   use {'yuki-yano/fzf-preview.vim', branch = 'release/rpc' }
-  use {'antoinemadec/coc-fzf'}
   use {'rhysd/vim-operator-surround'}
   use {'mattn/emmet-vim', ft = {"html", "vue"} }
   use {'airblade/vim-gitgutter'}
@@ -130,14 +129,15 @@ return require('packer').startup(function(use)
   use {'HerringtonDarkholme/yats.vim'}
   use {'qpkorr/vim-bufkill'}
   use {'tpope/vim-endwise'}
-  use {'neoclide/coc.nvim', branch = "master", run = ":! yarn install --frozen-lockfile", config = function()
-    vim.cmd [[
-      autocmd CursorHold * silent call CocActionAsync('highlight')
-    ]]
-  end}
   use {'lambdalisue/fern.vim', branch = 'main'}
   use {'junkblocker/patchreview-vim'}
   use {'chemzqm/denite-git'}
+  use { 'neovim/nvim-lspconfig' }
+  use { "williamboman/mason.nvim", config = function()
+    local mason = require("mason-lspconfig")
+    mason.setup()
+  end}
+  use {"williamboman/mason-lspconfig.nvim"}
   use {'himanoa/goshiteki'}
   use {'ruanyl/vim-gh-line'}
   use {'knsh14/vim-github-link'}
@@ -211,7 +211,21 @@ return require('packer').startup(function(use)
     require('telescope').load_extension('fzf')
   end}
   use {'nvim-telescope/telescope-fzf-native.nvim', run =  ':! cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build'}
+
+  local on_attach = function(client, bufnr)
+    client.server_capabilities.document_formatting = false
+  end
+
+  require("mason-lspconfig").setup_handlers {
+    function (server_name) -- default handler (optional)
+      require("lspconfig")[server_name].setup {
+        on_attach = on_attach
+      }
+    end
+  }
+
   if packer_bootstrap then
     require('packer').sync()
   end
 end)
+
