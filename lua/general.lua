@@ -2,6 +2,7 @@ local functional = require("functional")
 
 functional.map(
 {
+  signcolumn = "yes",
   autoread = true,
   spelllang = {unpack(vim.opt.spelllang), "cjk"},
   termguicolors = true,

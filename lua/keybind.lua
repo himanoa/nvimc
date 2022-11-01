@@ -14,7 +14,7 @@ local lsp_keybind = {
   { "gi", "<cmd>lua vim.lsp.buf.implementation()<CR>", { mode = 'normal' } },
   { "gr", "<cmd>lua vim.lsp.buf.references()<CR>", { mode = 'normal' } },
   { "K", "<cmd>lua vim.lsp.buf.hover()<CR>", { mode = 'normal' } },
-  { "L", "<cmd>lua vim.lsp.diagnostic.signature_help()()<CR>", { mode = 'normal' } },
+  { "L", "<cmd>lua vim.lsp.buf.code_action()<CR>", { mode = 'normal' } },
   { "M", "<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>", { mode = 'normal' } },
 }
 
@@ -32,6 +32,11 @@ local operator_surround_keybind = {
   { "sr", "<Plug>(operator-surround-replace-toggle)", { mode = 'visual' } },
 }
 
+local vsnip_keybind = {
+  { "<TAB>", "vsnip#jumpable(1) ? '<Plug>(vsnip-jump-next)': '<Tab>'", { mode = "insert" } },
+  { "<S-TAB>", "vsnip#jumpable(-1) ? '<Plug>(vsnip-jump-prev)': '<Tab>'", { mode = "insert" } }
+}
+
 functional.map(
   functional.combine({
     { ";", ":", { mode = "normal" } },
@@ -44,7 +49,8 @@ functional.map(
     telescope_keybind,
     lsp_keybind,
     operator_camelize_keybind,
-    operator_surround_keybind
+    operator_surround_keybind,
+    vsnip_keybind
   ),
   function(_,setting)
     functional.pattern(setting, {
