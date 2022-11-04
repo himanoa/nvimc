@@ -118,8 +118,6 @@ return require('packer').startup(function(use)
   end}
   use {'neomake/neomake'}
 
-  use {'junegunn/fzf'}
-  use {'yuki-yano/fzf-preview.vim', branch = 'release/rpc' }
   use {'rhysd/vim-operator-surround'}
   use {'mattn/emmet-vim', ft = {"html", "vue"} }
   use {'airblade/vim-gitgutter'}
@@ -207,9 +205,8 @@ return require('packer').startup(function(use)
         },
       },
     });
-    require('telescope').load_extension('fzf')
+    require('telescope')
   end}
-  use {'nvim-telescope/telescope-fzf-native.nvim', run =  ':! cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build'}
 
   use {'hrsh7th/cmp-nvim-lsp'}
   use {'hrsh7th/cmp-buffer'}
@@ -271,9 +268,7 @@ return require('packer').startup(function(use)
     cmp.setup.cmdline(':', {
       mapping = cmp.mapping.preset.cmdline(),
       sources = cmp.config.sources({
-        { name = 'path' }
       }, {
-        { name = 'cmdline' }
       })
     })
 
