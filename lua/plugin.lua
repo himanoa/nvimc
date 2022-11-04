@@ -151,7 +151,6 @@ return require('packer').startup(function(use)
   end}
   use {'itchyny/vim-gitbranch'}
   use {'niklaas/lightline-gitdiff'}
-  use {'SirVer/ultisnips'}
   use {'honza/vim-snippets'}
   use {'~/src/github.com/alp-inc/z-labo-himanoa/alp-vim'}
   use {'skywind3000/asyncrun.vim'}
@@ -225,7 +224,6 @@ return require('packer').startup(function(use)
           vim.fn["vsnip#anonymous"](args.body)
           -- require('luasnip').lsp_expand(args.body) -- For `luasnip` users.
           -- require('snippy').expand_snippet(args.body) -- For `snippy` users.
-          -- vim.fn["UltiSnips#Anon"](args.body) -- For `ultisnips` users.
         end,
       },
       window = {
