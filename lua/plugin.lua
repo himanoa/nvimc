@@ -27,7 +27,6 @@ return require('packer').startup(function(use)
   use {'Shougo/neomru.vim'}
 
   use {'jceb/vim-hier'}
-
   use {'tmsanrinsha/yaml.vim'}
 
   use {'kana/vim-textobj-user'}
@@ -214,6 +213,7 @@ return require('packer').startup(function(use)
   use {'hrsh7th/cmp-vsnip'}
   use {'hrsh7th/vim-vsnip'}
   use {"rafamadriz/friendly-snippets"}
+  use {'scalameta/nvim-metals', requires = { "nvim-lua/plenary.nvim" }}
   use {'hrsh7th/nvim-cmp', config = function()
     local cmp = require'cmp'
 
@@ -277,6 +277,41 @@ return require('packer').startup(function(use)
     client.server_capabilities.document_formatting = false
   end
 
+  -- nvim-metals
+  local metals_config = require("metals").bare_config()
+  
+  -- Example of settings
+  metals_config.settings = {
+    showImplicitArguments = true,
+    excludedPackages = { "akka.actor.typed.javadsl", "com.github.swagger.akka.javadsl" },
+  }
+  
+  -- *READ THIS*
+  -- I *highly* recommend setting statusBarProvider to true, however if you do,
+  -- you *have* to have a setting to display this in your statusline or else
+  -- you'll not see any messages from metals. There is more info in the help
+  -- docs about this
+  -- metals_config.init_options.statusBarProvider = "on"
+  
+  -- Example if you are using cmp how to make sure the correct capabilities for snippets are set
+  metals_config.capabilities = require("cmp_nvim_lsp").default_capabilities()
+  
+  metals_config.on_attach = function(client, bufnr)
+  end
+  
+  -- Autocmd that will actually be in charging of starting the whole thing
+  local nvim_metals_group = vim.api.nvim_create_augroup("nvim-metals", { clear = true })
+  vim.api.nvim_create_autocmd("FileType", {
+    -- NOTE: You may or may not want java included here. You will need it if you
+    -- want basic Java support but it may also conflict if you are using
+    -- something like nvim-jdtls which also works on a java filetype autocmd.
+    pattern = { "scala", "sbt", "java" },
+    callback = function()
+      require("metals").initialize_or_attach(metals_config)
+    end,
+    group = nvim_metals_group,
+  })
+
   require("mason-lspconfig").setup_handlers {
     function (server_name) -- default handler (optional)
       require("lspconfig")[server_name].setup {
@@ -289,4 +324,3 @@ return require('packer').startup(function(use)
     require('packer').sync()
   end
 end)
-
