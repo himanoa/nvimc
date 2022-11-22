@@ -305,6 +305,18 @@ return require('packer').startup(function(use)
     end
   }
 
+
+  require('lspconfig')['tsserver'].setup{
+    on_attach = on_attach,
+    flags = lsp_flags,
+    cmd = { "typescript-language-server", "--stdio" },
+    init_options= {
+      hostInfo = "neovim",
+      preferences = {
+        importModuleSpecifierPreference = "non-relative"
+      }
+    }
+  }
   if packer_bootstrap then
     require('packer').sync()
   end
