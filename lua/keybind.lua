@@ -16,6 +16,16 @@ local lsp_keybind = {
   { "K", "<cmd>lua vim.lsp.buf.hover()<CR>", { mode = 'normal' } },
   { "L", "<cmd>lua vim.lsp.buf.code_action()<CR>", { mode = 'normal' } },
   { "M", "<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>", { mode = 'normal' } },
+  {"<leader>cl", [[<cmd>lua vim.lsp.codelens.run()<CR>]], { mode = "normal" }},
+  {"<leader>sh", [[<cmd>lua vim.lsp.buf.signature_help()<CR>]], { mode = "normal" }},
+  {"<leader>rn", "<cmd>lua vim.lsp.buf.rename()<CR>", { mode = "normal" }},
+  {"<leader>f", "<cmd>lua vim.lsp.buf.formatting()<CR}>", { mode = "normal" } },
+  {"<leader>ca", "<cmd>lua vim.lsp.buf.code_action()<}CR>", { mode = "normal" }},
+  {"<leader>ws", '<cmd>lua require"metals".hover_worksheet()<CR>', { mode = "normal" }},
+  {"<leader>aa", [[<cmd>lua vim.diagnostic.setqflist()<CR>]], { mode = "normal" }},
+  {"<leader>ae", [[<cmd>lua vim.diagnostic.setqflist({severity = "E"})<CR>]], { mode = "normal" }},
+  {"<leader>aw", [[<cmd>lua vim.diagnostic.setqflist({severity = "W"})<CR>]], { mode = "normal" }},
+  {"<leader>d", "<cmd>lua vim.diagnostic.setloclist()<CR>", { mode = "normal" }}
 }
 
 local operator_camelize_keybind = {
@@ -32,13 +42,9 @@ local operator_surround_keybind = {
   { "sr", "<Plug>(operator-surround-replace-toggle)", { mode = 'visual' } },
 }
 
-local vsnip_keybind = {
-  { "<TAB>", "vsnip#jumpable(1) ? '<Plug>(vsnip-jump-next)': '<Tab>'", { mode = "insert" } },
-  { "<S-TAB>", "vsnip#jumpable(-1) ? '<Plug>(vsnip-jump-prev)': '<Tab>'", { mode = "insert" } }
-}
-
 functional.map(
-  functional.combine({
+  functional.combine(
+  {
     { ";", ":", { mode = "normal" } },
     { "X", ":w<CR>", { mode = "normal" } },
     { "<S-Tab>", "<C-d>", { mode = "insert"} },
@@ -46,11 +52,10 @@ functional.map(
     { "}", "<Cmd>cnext<CR>", { mode = "normal" } },
     { "<Space>,", "<Cmd>noh<CR>", { mode = "normal" } },
   },
-    telescope_keybind,
-    lsp_keybind,
-    operator_camelize_keybind,
-    operator_surround_keybind,
-    vsnip_keybind
+  telescope_keybind,
+  lsp_keybind,
+  operator_camelize_keybind,
+  operator_surround_keybind
   ),
   function(_,setting)
     functional.pattern(setting, {

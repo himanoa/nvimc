@@ -21,6 +21,7 @@ return require('packer').startup(function(use)
   use {'freeo/vim-kalisi'}
   use {'cohama/lexima.vim'}
   use {'cocopon/iceberg.vim'}
+  use { 'jremmen/vim-ripgrep' }
 
   use {'tpope/vim-fugitive'}
 
@@ -196,9 +197,9 @@ return require('packer').startup(function(use)
       },
       extensions = {
         fzf = {
-          fuzzy = true,                    -- false will only do exact matching
+          fuzzy = false,                    -- false will only do exact matching
           override_generic_sorter = false, -- override the generic sorter
-          override_file_sorter = true,     -- override the file sorter
+          override_file_sorter = false,     -- override the file sorter
           case_mode = "smart_case",        -- or "ignore_case" or "respect_case"
         },
       },
@@ -251,22 +252,6 @@ return require('packer').startup(function(use)
         { name = 'cmp_git' }, -- You can specify the `cmp_git` source if you were installed it.
       }, {
         { name = 'buffer' },
-      })
-    })
-
-    -- Use buffer source for `/` and `?` (if you enabled `native_menu`, this won't work anymore).
-    cmp.setup.cmdline({ '/', '?' }, {
-      mapping = cmp.mapping.preset.cmdline(),
-      sources = {
-        { name = 'buffer' }
-      }
-    })
-
-    -- Use cmdline & path source for ':' (if you enabled `native_menu`, this won't work anymore).
-    cmp.setup.cmdline(':', {
-      mapping = cmp.mapping.preset.cmdline(),
-      sources = cmp.config.sources({
-      }, {
       })
     })
 
