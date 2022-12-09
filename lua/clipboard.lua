@@ -7,7 +7,7 @@ end
 functional.pattern(1, {
   {
     predicate = function()
-      return system('uname -a | grep microsoft')
+      return vim.fn["system"]('uname -a | grep microsoft') ~= ""
     end,
     and_then = function()
       vim.cmd [[
@@ -20,6 +20,27 @@ functional.pattern(1, {
               \   'paste': {
               \      '+': 'win32yank.exe -o',
               \      '*': 'win32yank.exe -o',
+              \   },
+              \   'cache_enabled': 1,
+              \ }
+      ]]
+    end
+  },
+  {
+    predicate = function()
+      return true
+    end,
+    and_then = function()
+      vim.cmd [[
+        let g:clipboard = {
+              \   'name': 'myClipboard',
+              \   'copy': {
+              \      '+': 'wl-copy',
+              \      '*': 'wl-copy',
+              \    },
+              \   'paste': {
+              \      '+': 'wl-paste',
+              \      '*': 'wl-paste',
               \   },
               \   'cache_enabled': 1,
               \ }

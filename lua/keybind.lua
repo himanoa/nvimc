@@ -42,6 +42,7 @@ local operator_surround_keybind = {
   { "sr", "<Plug>(operator-surround-replace-toggle)", { mode = 'visual' } },
 }
 
+
 functional.map(
   functional.combine(
   {
