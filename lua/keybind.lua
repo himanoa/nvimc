@@ -52,6 +52,8 @@ functional.map(
     { "{", "<Cmd>cprevious<CR>", { mode = "normal" } },
     { "}", "<Cmd>cnext<CR>", { mode = "normal" } },
     { "<Space>,", "<Cmd>noh<CR>", { mode = "normal" } },
+    { "<F15>,", "", { mode = "insert" } },
+    { "<F14>,", "", { mode = "insert" } },
   },
   telescope_keybind,
   lsp_keybind,
