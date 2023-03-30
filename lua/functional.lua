@@ -32,7 +32,7 @@ local mod = {
 
     for _,pattern in pairs(patterns) do
       if pattern.predicate(value) then
-        pattern.and_then(value)
+        return pattern.and_then(value)
       end
     end
   end,

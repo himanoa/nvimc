@@ -1,4 +1,5 @@
 local functional = require("functional")
+local markdown = require('filetypes/markdown')
 
 functional.map(
 {
@@ -24,7 +25,8 @@ functional.map(
   ttyfast= true,
   pumblend=20,
   winblend=20,
-  wildoptions="pum"
+  wildoptions="pum",
+  background="light"
 },
 function(key, value)
   vim.opt[key] = value
@@ -56,4 +58,15 @@ vim.cmd [[
   highlight DiffLine guifg=NONE guibg=#8fa1b3
 ]]
 
+vim.cmd [[
+  colorscheme kalisi
+]]
+
+
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = "markdown",
+  callback = function(args)
+    markdown.load()
+  end
+})
 

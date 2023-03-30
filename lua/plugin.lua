@@ -43,7 +43,7 @@ return require('packer').startup(function(use)
       let g:lightline#gitdiff#indicator_deleted = '-'
       let g:lightline#gitdiff#separator = ' '
       let g:lightline = {
-              \ 'colorscheme': 'wombat',
+              \ 'colorscheme': 'one',
               \ 'mode_map': {'c': 'NORMAL'},
               \ 'active': {
               \   'left': [ [ 'branchname' ], [ 'filename' ], ['gitdiff'] ],
@@ -215,6 +215,8 @@ return require('packer').startup(function(use)
   use {'hrsh7th/vim-vsnip'}
   use {"rafamadriz/friendly-snippets"}
   use {'scalameta/nvim-metals', requires = { "nvim-lua/plenary.nvim" }}
+  use {'hashivim/vim-terraform'}
+  use { "ellisonleao/gruvbox.nvim" }
   use {'hrsh7th/nvim-cmp', config = function()
     local cmp = require'cmp'
 
@@ -319,4 +321,11 @@ return require('packer').startup(function(use)
   if packer_bootstrap then
     require('packer').sync()
   end
+
+  require('gruvbox').setup({
+    palette_overrides = {
+      light0 = "#f2e5bc"
+
+    }
+  })
 end)
