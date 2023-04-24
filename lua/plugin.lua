@@ -303,7 +303,7 @@ return require('packer').startup(function(use)
   mason_lspconfig.setup_handlers({
   function(server_name)
     local node_root_dir = nvim_lsp.util.root_pattern("package.json")
-    local is_node_repo = node_root_dir(vim.api.nvim_buf_get_name(0)) ~= nil
+    local is_node_repo = node_root_dir(vim.loop.cwd()) ~= nil
 
     local opts = {}
 
@@ -313,7 +313,6 @@ return require('packer').startup(function(use)
       if not is_node_repo then
         return
       end
-
 
       opts.init_options = {
         hostInfo = "neovim",
