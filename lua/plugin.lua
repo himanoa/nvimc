@@ -155,6 +155,7 @@ return require('packer').startup(function(use)
   use {'nocksock/bloop-vim'}
   use {'tpope/vim-abolish'}
   use {'nvim-lua/plenary.nvim'}
+  use {'github/copilot.vim'}
   use {'nvim-telescope/telescope.nvim', config = function()
     require('telescope').setup({
       defaults = {
@@ -211,6 +212,7 @@ return require('packer').startup(function(use)
   use {'hrsh7th/cmp-vsnip'}
   use {'hrsh7th/vim-vsnip'}
   use {"rafamadriz/friendly-snippets"}
+  use {'mfussenegger/nvim-dap'}
   use {'scalameta/nvim-metals', requires = { "nvim-lua/plenary.nvim" }}
   use {'hashivim/vim-terraform'}
   use { "ellisonleao/gruvbox.nvim" }
