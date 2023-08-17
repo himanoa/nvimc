@@ -220,43 +220,40 @@ return require('packer').startup(function(use)
     local cmp = require'cmp'
 
     cmp.setup({
-      snippet = {
-        -- REQUIRED - you must specify a snippet engine
-        expand = function(args)
-          vim.fn["vsnip#anonymous"](args.body)
-          -- require('luasnip').lsp_expand(args.body) -- For `luasnip` users.
-          -- require('snippy').expand_snippet(args.body) -- For `snippy` users.
-        end,
-      },
-      window = {
-        -- completion = cmp.config.window.bordered(),
-        -- documentation = cmp.config.window.bordered(),
-      },
-      mapping = cmp.mapping.preset.insert({
-        ['<C-b>'] = cmp.mapping.scroll_docs(-4),
-        ['<C-f>'] = cmp.mapping.scroll_docs(4),
-        ['<C-Space>'] = cmp.mapping.complete(),
-        ['<C-e>'] = cmp.mapping.abort(),
-        ['<CR>'] = cmp.mapping.confirm({ select = true }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
-      }),
-      sources = cmp.config.sources({
-        { name = 'nvim_lsp' },
-        { name = 'vsnip' }
-      }, {
-        { name = 'buffer' },
-      })
+    --   snippet = {
+    --     -- REQUIRED - you must specify a snippet engine
+    --     expand = function(args)
+    --       vim.fn["vsnip#anonymous"](args.body)
+    --       -- require('luasnip').lsp_expand(args.body) -- For `luasnip` users.
+    --       -- require('snippy').expand_snippet(args.body) -- For `snippy` users.
+    --     end,
+    --   },
+    --   window = {
+    --     -- completion = cmp.config.window.bordered(),
+    --     -- documentation = cmp.config.window.bordered(),
+    --   },
+       mapping = cmp.mapping.preset.insert({
+         ['<C-b>'] = cmp.mapping.scroll_docs(-4),
+         ['<C-f>'] = cmp.mapping.scroll_docs(4),
+         ['<C-Space>'] = cmp.mapping.complete(),
+         ['<C-e>'] = cmp.mapping.abort(),
+         ['<CR>'] = cmp.mapping.confirm({ select = true }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
+       }),
+       sources = cmp.config.sources({
+         { name = 'nvim_lsp' },
+       }, {
+         { name = 'buffer' },
+       })
     })
 
-    -- Set configuration for specific filetype.
-    cmp.setup.filetype('gitcommit', {
-      sources = cmp.config.sources({
-        { name = 'cmp_git' }, -- You can specify the `cmp_git` source if you were installed it.
-      }, {
-        { name = 'buffer' },
-      })
-    })
-
-    local capabilities = require('cmp_nvim_lsp').default_capabilities()
+    -- -- Set configuration for specific filetype.
+    -- cmp.setup.filetype('gitcommit', {
+    --   sources = cmp.config.sources({
+    --     { name = 'cmp_git' }, -- You can specify the `cmp_git` source if you were installed it.
+    --   }, {
+    --     { name = 'buffer' },
+    --   })
+    -- })
   end}
 
   local on_attach = function(client, bufnr)
@@ -306,8 +303,11 @@ return require('packer').startup(function(use)
   function(server_name)
     local node_root_dir = nvim_lsp.util.root_pattern("package.json")
     local is_node_repo = node_root_dir(vim.loop.cwd()) ~= nil
+    local capabilities = require('cmp_nvim_lsp').default_capabilities()
 
-    local opts = {}
+    local opts = {
+      capabilities = capabilities
+    }
 
     opts.on_attach = function() end
 

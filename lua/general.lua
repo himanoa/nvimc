@@ -26,7 +26,7 @@ functional.map(
   pumblend=20,
   winblend=20,
   wildoptions="pum",
-  background="light"
+  background="dark"
 },
 function(key, value)
   vim.opt[key] = value
@@ -59,7 +59,7 @@ vim.cmd [[
 ]]
 
 vim.cmd [[
-  colorscheme kalisi
+  colorscheme gruvbox
 ]]
 
 

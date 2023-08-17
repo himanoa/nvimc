@@ -39,8 +39,8 @@ functional.pattern(1, {
               \      '*': 'xsel -bi',
               \    },
               \   'paste': {
-              \      '+': 'wl-paste',
-              \      '*': 'wl-paste',
+              \      '+': 'xsel-bo',
+              \      '*': 'xsel-bo',
               \   },
               \   'cache_enabled': 1,
               \ }
