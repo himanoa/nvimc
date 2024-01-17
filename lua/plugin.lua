@@ -218,16 +218,13 @@ return require('packer').startup(function(use)
   use { "ellisonleao/gruvbox.nvim" }
   use {'hrsh7th/nvim-cmp', config = function()
     local cmp = require'cmp'
-
     cmp.setup({
-    --   snippet = {
-    --     -- REQUIRED - you must specify a snippet engine
-    --     expand = function(args)
-    --       vim.fn["vsnip#anonymous"](args.body)
-    --       -- require('luasnip').lsp_expand(args.body) -- For `luasnip` users.
-    --       -- require('snippy').expand_snippet(args.body) -- For `snippy` users.
-    --     end,
-    --   },
+       snippet = {
+         -- REQUIRED - you must specify a snippet engine
+         expand = function(args)
+           vim.fn["vsnip#anonymous"](args.body)
+         end
+       },
     --   window = {
     --     -- completion = cmp.config.window.bordered(),
     --     -- documentation = cmp.config.window.bordered(),
@@ -235,7 +232,6 @@ return require('packer').startup(function(use)
        mapping = cmp.mapping.preset.insert({
          ['<C-b>'] = cmp.mapping.scroll_docs(-4),
          ['<C-f>'] = cmp.mapping.scroll_docs(4),
-         ['<C-Space>'] = cmp.mapping.complete(),
          ['<C-e>'] = cmp.mapping.abort(),
          ['<CR>'] = cmp.mapping.confirm({ select = true }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
        }),
@@ -278,8 +274,30 @@ return require('packer').startup(function(use)
   
   -- Example if you are using cmp how to make sure the correct capabilities for snippets are set
   metals_config.capabilities = require("cmp_nvim_lsp").default_capabilities()
-  
+  local dap = require("dap")
+
+  dap.configurations.scala = {
+    {
+      type = "scala",
+      request = "launch",
+      name = "RunOrTest",
+      metals = {
+        runType = "runOrTestFile",
+        --args = { "firstArg", "secondArg", "thirdArg" }, -- here just as an example
+      },
+    },
+    {
+      type = "scala",
+      request = "launch",
+      name = "Test Target",
+      metals = {
+        runType = "testTarget",
+      },
+    },
+  }
+
   metals_config.on_attach = function(client, bufnr)
+    require("metals").setup_dap()
   end
   
   -- Autocmd that will actually be in charging of starting the whole thing
@@ -304,6 +322,7 @@ return require('packer').startup(function(use)
     local node_root_dir = nvim_lsp.util.root_pattern("package.json")
     local is_node_repo = node_root_dir(vim.loop.cwd()) ~= nil
     local capabilities = require('cmp_nvim_lsp').default_capabilities()
+    capabilities.textDocument.completion.completionItem.snippetSupport = false
 
     local opts = {
       capabilities = capabilities
@@ -319,7 +338,10 @@ return require('packer').startup(function(use)
       opts.init_options = {
         hostInfo = "neovim",
         preferences = {
-          importModuleSpecifierPreference = "non-relative"
+          importModuleSpecifierPreference = "non-relative",
+          completion = {
+            completeFunctionCalls = false,
+          }
         }
       }
       opts.root_dir = node_root_dir

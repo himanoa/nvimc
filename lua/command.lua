@@ -3,6 +3,7 @@ local functional = require("functional")
 local commands = {
   Todo = ":new ~/todo.md",
   Build = ":AsyncRun ./himanoa-build",
+  Test = ":AsyncRun ./himanoa-test",
   CommandConfig = ":new ~/.config/nvim/lua/command.lua",
   GeneralConfig = ":new ~/.config/nvim/lua/general.lua",
   KeybindConfig = "new ~/.config/nvim/lua/keybind.lua",

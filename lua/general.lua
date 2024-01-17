@@ -8,6 +8,7 @@ functional.map(
   autoread = true,
   spelllang = {unpack(vim.opt.spelllang), "cjk"},
   termguicolors = true,
+  lazyredraw = true,
   number = true,
   relativenumber = true,
   encoding="utf-8",
@@ -59,7 +60,7 @@ vim.cmd [[
 ]]
 
 vim.cmd [[
-  colorscheme gruvbox
+  colorscheme slate
 ]]
 
 
@@ -70,3 +71,4 @@ vim.api.nvim_create_autocmd("FileType", {
   end
 })
 
+vim.g.loaded_matchparen = 0
