@@ -155,7 +155,6 @@ return require('packer').startup(function(use)
   use {'nocksock/bloop-vim'}
   use {'tpope/vim-abolish'}
   use {'nvim-lua/plenary.nvim'}
-  use {'github/copilot.vim'}
   use {'nvim-telescope/telescope.nvim', config = function()
     require('telescope').setup({
       defaults = {
@@ -322,6 +321,7 @@ return require('packer').startup(function(use)
     local node_root_dir = nvim_lsp.util.root_pattern("package.json")
     local is_node_repo = node_root_dir(vim.loop.cwd()) ~= nil
     local capabilities = require('cmp_nvim_lsp').default_capabilities()
+
     capabilities.textDocument.completion.completionItem.snippetSupport = false
 
     local opts = {
