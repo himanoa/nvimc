@@ -19,7 +19,7 @@ local lsp_keybind = {
   {"<leader>cl", [[<cmd>lua vim.lsp.codelens.run()<CR>]], { mode = "normal" }},
   {"<leader>sh", [[<cmd>lua vim.lsp.buf.signature_help()<CR>]], { mode = "normal" }},
   {"<leader>rn", "<cmd>lua vim.lsp.buf.rename()<CR>", { mode = "normal" }},
-  {"<leader>f", "<cmd>lua vim.lsp.buf.formatting()<CR}>", { mode = "normal" } },
+  {"<leader>f", "<cmd>lua vim.lsp.buf.formatting()<CR>", { mode = "normal" } },
   {"<leader>ca", "<cmd>lua vim.lsp.buf.code_action()<}CR>", { mode = "normal" }},
   {"<leader>ws", '<cmd>lua require"metals".hover_worksheet()<CR>', { mode = "normal" }},
   {"<leader>aa", [[<cmd>lua vim.diagnostic.setqflist()<CR>]], { mode = "normal" }},
@@ -35,11 +35,11 @@ local operator_camelize_keybind = {
 
 local operator_surround_keybind = {
   { "sa", "<Plug>(operator-surround-append)", { mode = 'normal' } },
-  { "sd", "<Plug>(operator-surround-delete-toggle)", { mode = 'normal' } },
-  { "sr", "<Plug>(operator-surround-replace-toggle)", { mode = 'normal' } },
+  { "sd", "<Plug>(operator-surround-delete)", { mode = 'normal' } },
+  { "sr", "<Plug>(operator-surround-replace)", { mode = 'normal' } },
   { "sa", "<Plug>(operator-surround-append)", { mode = 'visual' } },
-  { "sd", "<Plug>(operator-surround-delete-toggle)", { mode = 'visual' } },
-  { "sr", "<Plug>(operator-surround-replace-toggle)", { mode = 'visual' } },
+  { "sd", "<Plug>(operator-surround-delet)", { mode = 'visual' } },
+  { "sr", "<Plug>(operator-surround-replace)", { mode = 'visual' } },
 }
 
 

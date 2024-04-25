@@ -31,6 +31,8 @@ return require('packer').startup(function(use)
   use {'tmsanrinsha/yaml.vim'}
 
   use {'kana/vim-textobj-user'}
+  use {'earthly/earthly.vim'}
+  use {'sainnhe/everforest'}
 
   use {'kana/vim-operator-user'}
   use {'vim-scripts/textobj-verticalbar'}
@@ -142,7 +144,11 @@ return require('packer').startup(function(use)
   use {'nvim-treesitter/nvim-treesitter', run = ':TSUpdate', config = function()
   require('nvim-treesitter.configs').setup {
     highlight = {
-    enable = true
+      enable = true,
+      additional_vim_regex_highlighting = false
+    },
+    indent = {
+      enable = true
     }
   }
   end}
@@ -316,6 +322,7 @@ return require('packer').startup(function(use)
   local mason = require('mason')
   local mason_lspconfig = require('mason-lspconfig')
   local nvim_lsp = require('lspconfig')
+  -- TypeScript
   mason_lspconfig.setup_handlers({
   function(server_name)
     local node_root_dir = nvim_lsp.util.root_pattern("package.json")

@@ -59,7 +59,7 @@ vim.cmd [[
 ]]
 
 vim.cmd [[
-  colorscheme slate
+  colorscheme everforest
 ]]
 
 
