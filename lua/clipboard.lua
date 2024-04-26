@@ -35,12 +35,12 @@ functional.pattern(1, {
         let g:clipboard = {
               \   'name': 'myClipboard',
               \   'copy': {
-              \      '+': 'xsel -bi',
-              \      '*': 'xsel -bi',
+              \      '+': 'wl-copy',
+              \      '*': 'wl-copy',
               \    },
               \   'paste': {
-              \      '+': 'xsel -bo',
-              \      '*': 'xsel -bo',
+              \      '+': 'wl-paste',
+              \      '*': 'wl-paste',
               \   },
               \   'cache_enabled': 1,
               \ }
