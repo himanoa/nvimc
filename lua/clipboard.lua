@@ -14,14 +14,14 @@ functional.pattern(1, {
         let g:clipboard = {
               \   'name': 'myClipboard',
               \   'copy': {
-              \      '+': 'win32yank.exe -i',
-              \      '*': 'win32yank.exe -i',
+              \      '+': 'win32yank.exe -i --crlf',
+              \      '*': 'win32yank.exe -i --crlf',
               \    },
               \   'paste': {
-              \      '+': 'win32yank.exe -o',
-              \      '*': 'win32yank.exe -o',
+              \      '+': 'win32yank.exe -o --lf',
+              \      '*': 'win32yank.exe -o --lf',
               \   },
-              \   'cache_enabled': 1,
+              \   'cache_enabled': 0,
               \ }
       ]]
     end

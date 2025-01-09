@@ -221,6 +221,13 @@ return require('packer').startup(function(use)
   use {'scalameta/nvim-metals', requires = { "nvim-lua/plenary.nvim" }}
   use {'hashivim/vim-terraform'}
   use { "ellisonleao/gruvbox.nvim" }
+  use { "xiyaowong/transparent.nvim", config = function() 
+    vim.cmd [[ :TransparentEnable ]]
+  end}
+  use { "folke/tokyonight.nvim" }
+  use { "ionide/Ionide-vim", config = function()
+    require'ionide'.setup{}
+  end}
   use {'hrsh7th/nvim-cmp', config = function()
     local cmp = require'cmp'
     cmp.setup({
@@ -322,6 +329,7 @@ return require('packer').startup(function(use)
   local mason = require('mason')
   local mason_lspconfig = require('mason-lspconfig')
   local nvim_lsp = require('lspconfig')
+  -- PureScript
   -- TypeScript
   mason_lspconfig.setup_handlers({
   function(server_name)
@@ -336,6 +344,12 @@ return require('packer').startup(function(use)
     }
 
     opts.on_attach = function() end
+    if(server_name == 'purescriptls') then
+      opts.settings = {
+        purescript = { addSpagoSources = true },
+        formatter = "purs-tidy"
+      }
+    end
 
     if server_name == "tsserver" then
       if not is_node_repo then
@@ -380,6 +394,22 @@ return require('packer').startup(function(use)
     end
 
     nvim_lsp[server_name].setup(opts)
+
+    local method = "textDocument/publishDiagnostics"
+    vim.lsp.callbacks = {}
+    vim.lsp.callbacks[method] = function(err, method, result, client_id)
+      if result and result.diagnostics then
+        for _, v in ipairs(result.diagnostics) do
+          v.uri = v.uri or result.uri
+          v.bufnr = vim.uri_to_bufnr(v.uri)
+          v.lnum = v.range.start.line + 1
+          v.col = v.range.start.character + 1
+          v.text = v.message
+        end
+        vim.lsp.util.set_qflist(result.diagnostics)
+        vim.lsp.util.set_loclist(result.diagnostics)
+      end
+    end
   end
 })
 

@@ -1,5 +1,7 @@
 local functional = require("functional")
 local markdown = require('filetypes/markdown')
+local purescript = require('filetypes/purescript')
+local fsharp = require('filetypes/fsharp')
 
 functional.map(
 {
@@ -50,16 +52,17 @@ vim.cmd [[
   syntax enable
 ]]
 
-vim.cmd [[
-  highlight DiffAdd guifg=NONE guibg=#334539
-  highlight DiffChange guifg=NONE guibg=#334539
-  highlight DiffDelete guifg=NONE guibg=#45333a
-  highlight DiffText guifg=NONE guibg=#5f5d42
-  highlight DiffLine guifg=NONE guibg=#8fa1b3
-]]
 
 vim.cmd [[
   colorscheme everforest
+]]
+
+vim.cmd [[
+  highlight DiffAdd guifg=none guibg=#334539
+  highlight DiffChange guifg=none guibg=#334539
+  highlight DiffDelete guifg=none guibg=#45333a
+  highlight DiffText guifg=none guibg=#5f5d42
+  highlight DiffLine guifg=none guibg=#8fa1b3
 ]]
 
 
@@ -69,5 +72,39 @@ vim.api.nvim_create_autocmd("FileType", {
     markdown.load()
   end
 })
+
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = "fsharp",
+  callback = function(args)
+    fsharp.load()
+  end
+})
+
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = "purescript",
+  callback = function(args)
+    purescript.load()
+  end
+})
+
+vim.lsp.handlers["textDocument/definition"] = function(_, result, ctx)
+  if not result or vim.tbl_isempty(result) then return end
+
+  local client = vim.lsp.get_client_by_id(ctx.client_id)
+  if not client then return end
+
+  if vim.tbl_islist(result) then
+    vim.lsp.util.jump_to_location(result[1], client.offset_encoding)
+
+    if #result > 1 then
+      local current_qf = vim.fn.getqflist()
+      local items = vim.lsp.util.locations_to_items(result, client.offset_encoding)
+      vim.fn.setloclist(0, items)
+      vim.fn.setqflist(current_qf)
+    end
+  else
+    vim.lsp.util.jump_to_location(result, client.offset_encoding)
+  end
+end
 
 vim.g.loaded_matchparen = 0
