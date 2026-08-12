@@ -13,10 +13,6 @@
       "src": "https://github.com/Saghen/blink.cmp",
       "version": "1.0.0 - 2.0.0"
     },
-    "clever-f.vim": {
-      "rev": "6a3ac5e3688598af9411ab741737f98c47370c22",
-      "src": "https://github.com/rhysd/clever-f.vim"
-    },
     "copilot.lua": {
       "rev": "7e6723aabea044519462958ffcea68d7985c5ed0",
       "src": "https://github.com/zbirenbaum/copilot.lua"
@@ -36,6 +32,10 @@
     "fern.vim": {
       "rev": "3bbca3c87a57cdc87495b91a695b8eda722a1de1",
       "src": "https://github.com/lambdalisue/fern.vim"
+    },
+    "flash.nvim": {
+      "rev": "b6346946d10d07998efee029fb0f7a593806d0cd",
+      "src": "https://github.com/folke/flash.nvim"
     },
     "friendly-snippets": {
       "rev": "6cd7280adead7f586db6fccbd15d2cac7e2188b9",

@@ -39,6 +39,11 @@ local lsp_keybind = {
   { 'n', '<leader>d', vim.diagnostic.setloclist },
 }
 
+local flash_keybind = {
+  { { 'n', 'x', 'o' }, '<Space>s', function() require('flash').jump() end },
+  { { 'n', 'x', 'o' }, '<Space>S', function() require('flash').treesitter() end },
+}
+
 local operator_keybind = {
   { { 'n', 'v' }, 'ct', '<Plug>(operator-camelize-toggle)' },
   { { 'n', 'v' }, 'sa', '<Plug>(operator-surround-append)' },
@@ -46,7 +51,7 @@ local operator_keybind = {
   { { 'n', 'v' }, 'sr', '<Plug>(operator-surround-replace)' },
 }
 
-for _, keybinds in ipairs({ general_keybind, telescope_keybind, lsp_keybind, operator_keybind }) do
+for _, keybinds in ipairs({ general_keybind, telescope_keybind, lsp_keybind, flash_keybind, operator_keybind }) do
   for _, bind in ipairs(keybinds) do
     vim.keymap.set(bind[1], bind[2], bind[3])
   end

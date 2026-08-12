@@ -14,7 +14,7 @@ vim.api.nvim_create_autocmd('PackChanged', {
 vim.pack.add({
   -- editing
   'https://github.com/junegunn/vim-easy-align',
-  'https://github.com/rhysd/clever-f.vim',
+  'https://github.com/folke/flash.nvim',
   'https://github.com/cohama/lexima.vim',
   'https://github.com/tpope/vim-endwise',
   'https://github.com/tpope/vim-abolish',
@@ -72,6 +72,8 @@ require('telescope').setup({
     preview = false,
   },
 })
+
+require('flash').setup({})
 
 require('blink.cmp').setup({
   keymap = { preset = 'enter' },
