@@ -2,12 +2,8 @@ require('plugin')
 require('general')
 require('keybind')
 require('command')
-require('clipboard')
 
-vim.cmd [[
-  let s:scripts = split(glob(".git/.vim/**.vim"), "\n")
-
-  for script in s:scripts
-    execute 'source' script
-  endfor
-]]
+-- Source project-local vimscript from .git/.vim/
+for _, script in ipairs(vim.fn.glob('.git/.vim/**.vim', false, true)) do
+  vim.cmd.source(script)
+end
